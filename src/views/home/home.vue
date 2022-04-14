@@ -14,77 +14,77 @@
     </div>
     <div class="lightLeft l_0" @click="turnLeft">
       <div class="sideLeft l_01">
-      <img rel="icon" src="../../assets/images/showMore.png" class="incoShowMore l_10">
+        <img rel="icon" src="../../assets/images/showMore.png" class="incoShowMore l_10" />
       </div>
     </div>
     <div class="lightRight r_0" @click="turnLeft">
       <div class="sideRight r_01">
-      <img rel="icon" src="../../assets/images/manager.png" class="incoManager r_10">
+        <img rel="icon" src="../../assets/images/manager.png" class="incoManager r_10" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import header from '../../components/header.vue'
+import header from '../../components/header.vue'
 
-  export default {
-    name: 'home',
-    components: {
-      'v-header': header
-    },
-    methods: {
-      turnLeft(){
-        console.log('turn leftPage')
-      }
+export default {
+  name: 'BlogHome',
+  components: {
+    'v-header': header
+  },
+  methods: {
+    turnLeft() {
+      // console.log('turn leftPage')
     }
   }
+}
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .container-wapper {
   // height: 100%;
   // width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));;
-  grid-gap:  20px;
+  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+  grid-gap: 20px;
   grid-auto-rows: minmax(90px, auto);
   grid-auto-flow: row;
-    .one {
-      grid-column-start: span 10;
-      grid-row-start: span 4;
-      background: #19CAAD;
-    }
-    .two {
-      grid-column-start: span 6;
-      grid-row-start: span 2;
-      background: #8CC7B5;
-    }
-    .three {
-      grid-column-start: span 6;
-      grid-row-start: span 2;
-      background: #D1BA74;
-    }
-    .four {
-      grid-column-start: span 12;
-      grid-row-start: span 16;
-      background: #BEE7E9;
-    }
-    .five {
-      grid-column-start: span 4;
-      grid-row-start: span 2;
-      background: #E6CEAC;
-    }
-    .six {
-      grid-column-start: span 4;
-      grid-row-start: span 4;
-      background: #ECAD9E;
-    }
-    .seven {
-      grid-column-start: span 4;
-      grid-row-start: span 4;
-      background: skyblue;
-    }
+  .one {
+    grid-column-start: span 10;
+    grid-row-start: span 4;
+    background: #19caad;
+  }
+  .two {
+    grid-column-start: span 6;
+    grid-row-start: span 2;
+    background: #8cc7b5;
+  }
+  .three {
+    grid-column-start: span 6;
+    grid-row-start: span 2;
+    background: #d1ba74;
+  }
+  .four {
+    grid-column-start: span 12;
+    grid-row-start: span 16;
+    background: #bee7e9;
+  }
+  .five {
+    grid-column-start: span 4;
+    grid-row-start: span 2;
+    background: #e6ceac;
+  }
+  .six {
+    grid-column-start: span 4;
+    grid-row-start: span 4;
+    background: #ecad9e;
+  }
+  .seven {
+    grid-column-start: span 4;
+    grid-row-start: span 4;
+    background: skyblue;
+  }
 }
 .lightLeft,
 .lightRight {
@@ -111,37 +111,36 @@
   }
 }
 .lightLeft:hover,
-.lightRight:hover{
+.lightRight:hover {
   background-color: #4cc9f0;
-  box-shadow: 10px 10px 99px 6px rgba(76,201,240,1);
+  box-shadow: 10px 10px 99px 6px rgba(76, 201, 240, 1);
   .sideLeft,
   .sideRight {
     background-color: #4cc9f0;
-    box-shadow: 10px 10px 99px 6px rgba(76,201,240,1);
+    box-shadow: 10px 10px 99px 6px rgba(76, 201, 240, 1);
   }
   .incoShowMore,
   .incoManager {
     width: 40px;
     height: 40px;
   }
-
 }
-.l_0{
+.l_0 {
   left: 0px;
 }
-.r_0{
+.r_0 {
   right: 0px;
 }
-.l_01{
+.l_01 {
   left: 0.1%;
 }
-.r_01{
+.r_01 {
   right: 0.1%;
 }
-.l_10{
+.l_10 {
   left: 10%;
 }
-.r_10{
+.r_10 {
   right: 10%;
 }
 </style>

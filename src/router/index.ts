@@ -1,46 +1,43 @@
-import {
-  createRouter,
-  createWebHistory,
-  RouteRecordRaw
-} from 'vue-router'
-const Demo = () => import( '@/views/Demo.vue');
-const page404 = () => import( '@/views/404.vue');
-const Home = () => import( '@/views/home/home.vue');
-const clickPage = () => import( '@/views/clickPage/clickPage.vue');
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+
+const Demo = () => import('@/views/Demo.vue')
+const page404 = () => import('@/views/404.vue')
+const Home = () => import('@/views/home/home.vue')
+const clickPage = () => import('@/views/clickPage/clickPage.vue')
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'clickPage',
     component: clickPage,
-    meta:{
-      title:'',
+    meta: {
+      title: ''
     }
   },
   {
     path: '/blog',
     name: 'blog',
     component: Home,
-    meta:{
-      title:'',
+    meta: {
+      title: ''
     }
   },
   {
     path: '/demo',
     name: 'demo',
     component: Demo,
-    meta:{
-      title:'',
+    meta: {
+      title: ''
     }
   },
   {
     path: '/404',
     name: '404',
     component: page404,
-    meta:{
-      title:'',
+    meta: {
+      title: ''
     }
-  },
+  }
 ]
 
 const router = createRouter({

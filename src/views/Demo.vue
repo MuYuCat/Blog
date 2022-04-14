@@ -7,26 +7,22 @@
 </template>
 
 <script>
-
 export default {
-  data () {
-    return {
-    };
+  name: 'BlogDemo',
+  data() {
+    return {}
   },
-  mounted () {
-  },
-  methods: {
-  }
-};
+  mounted() {},
+  methods: {}
+}
 </script>
 
 <style scoped lang="scss">
-  .demo{
-    height: 78vh;
-    font-weight: bold;
-    font-size: 30px;
-    text-align: center;
-    padding-top: 100px;
-
-  }
+.demo {
+  height: 78vh;
+  font-weight: bold;
+  font-size: 30px;
+  text-align: center;
+  padding-top: 100px;
+}
 </style>
