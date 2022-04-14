@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-clickPage></v-clickPage>
     <v-header></v-header>
     <div class="container">
       <div class="container-wapper">
@@ -12,7 +13,7 @@
         <div class="seven">seven</div>
       </div>
     </div>
-    <div class="lightLeft l_0" @click="turnLeft">
+    <!-- <div class="lightLeft l_0" @click="turnLeft">
       <div class="sideLeft l_01">
         <img rel="icon" src="../../assets/images/showMore.png" class="incoShowMore l_10" />
       </div>
@@ -21,17 +22,19 @@
       <div class="sideRight r_01">
         <img rel="icon" src="../../assets/images/manager.png" class="incoManager r_10" />
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
-<script>
-import header from '../../components/header.vue'
+<script lang="ts">
+import header from '@/components/header.vue'
+import clickPage from './components/clickPage.vue'
 
 export default {
   name: 'BlogHome',
   components: {
-    'v-header': header
+    'v-header': header,
+    'v-clickPage': clickPage
   },
   methods: {
     turnLeft() {

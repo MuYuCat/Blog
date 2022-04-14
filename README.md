@@ -1,19 +1,53 @@
-# Vue 3 + TypeScript + Vite
+# MuYuCat's Blog
+> [个人博客](https://muyucat.com) / 用于记录自己的生活
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
-
-## Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
-
-## Type Support For `.vue` Imports in TS
-
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
-
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
-
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+## 技术栈： Vue 3 + Typescript + Vite
+----
+## 代码架构
 
 
-// npx prettier --write .
+```
+.
+├── .husky  # Git Hook 工具，可以设置在 git 各个阶段触发我们的命令。
+│   └──pre-commit  # pre-commit hook
+├── public
+│   └── Mlogo.ico  # 页面图标
+├── src 
+│   ├── assets # 静态文件
+│   ├── components # 公共组件
+│   ├── router # 路由
+│   ├── styles # 公共样式
+│   ├── utils  # 公共方法
+│   ├── views  # 所有页面
+│   │   ├── home # 主页面
+│   │   │   ├── components # 所用组件
+│   │   │   └── home.vue   # 页面文件
+│   │   ├── 404  # 404页面
+│   │   └── demo # demo页面
+│   ├── App.vue 
+│   ├── env.d.ts
+│   └── main.ts
+├── .editorconfig # editorConfig 配置文件
+├── .eslintrc.js  # eslint 配置文件
+├── .gitignore    # git 排除配置文件
+├── .prettierrc   # prettier 配置文件
+├── index.html
+├── package-lock.json
+├── package.json
+├── README.md     # README
+├── tsconfig.json
+└── vite.config.ts
+```
+## 待办
+```
+  1. 构建数据库
+  2. 构建vite打包设置
+  3. 完善页面展示
+```
+
+## logs
+```
+  1. 2022/04/14 项目架构重构
+```
+
+> 路阻且长
