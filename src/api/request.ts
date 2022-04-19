@@ -1,3 +1,10 @@
+/*
+ * @Author: MuYuCat
+ * @Date: 2022-04-19 11:58:49
+ * @LastEditors: MuYuCat
+ * @LastEditTime: 2022-04-19 16:18:36
+ * @Description: file content
+ */
 import axios from 'axios';
 import { ElMessage } from 'element-plus';
 // 创建axios实例
@@ -6,7 +13,7 @@ import { ElMessage } from 'element-plus';
 const instance = axios.create({
   withCredentials: true,
   timeout: 60000,
-  baseURL: '',
+  baseURL: '/',
   headers: {
     'X-Requested-With': 'XMLHttpRequest'
   }

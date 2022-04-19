@@ -14,6 +14,16 @@ export default defineConfig({
   publicDir: 'public',
   base: '/', // 打包路径
   server: {
+    proxy: {
+      '/api': {
+        target: 'http://muyucat.com',
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: {
+          '^/api': '/'
+        }
+      }
+    },
     port: 8080, // 设置服务启动端口号
     open: true, // 设置服务启动时是否自动打开浏览器
     cors: true // 允许跨域

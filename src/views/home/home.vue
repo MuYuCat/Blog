@@ -29,7 +29,7 @@
 <script>
 import header from '@/components/header.vue';
 import clickPage from './components/clickPage.vue';
-import { findAll } from '../../api/home';
+import findAll from '../../api/home';
 
 export default {
   name: 'BlogHome',
