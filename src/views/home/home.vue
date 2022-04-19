@@ -4,7 +4,7 @@
     <v-header></v-header>
     <div class="container">
       <div class="container-wapper">
-        <div class="one">one</div>
+        <div class="one">{{ resultString }}</div>
         <div class="two">two</div>
         <div class="three">three</div>
         <div class="four">four</div>
@@ -26,9 +26,10 @@
   </div>
 </template>
 
-<script lang="ts">
-import header from '@/components/header.vue'
-import clickPage from './components/clickPage.vue'
+<script>
+import header from '@/components/header.vue';
+import clickPage from './components/clickPage.vue';
+import { findAll } from '../../api/home';
 
 export default {
   name: 'BlogHome',
@@ -36,12 +37,25 @@ export default {
     'v-header': header,
     'v-clickPage': clickPage
   },
+  data() {
+    return {
+      resultString: ''
+    };
+  },
+  created() {
+    this.showFindAll();
+  },
   methods: {
     turnLeft() {
       // console.log('turn leftPage')
+    },
+    async showFindAll() {
+      const res = await findAll();
+      console.log(res);
+      this.resultString = res;
     }
   }
-}
+};
 </script>
 
 <style scoped lang="scss">

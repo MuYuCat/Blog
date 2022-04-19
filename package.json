@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vue-tsc --noEmit --skipLibCheck && vite build",
     "preview": "vite preview",
     "prepare": "husky install"
   },
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "axios": "^0.26.1",
+    "element-plus": "^2.1.9",
     "vue": "^3.2.25",
     "vue-router": "^4.0.14",
     "vuex": "^4.0.2"
