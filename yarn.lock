@@ -337,7 +337,7 @@
     "@vue/compiler-dom" "3.2.32"
     "@vue/shared" "3.2.32"
 
-"@vue/devtools-api@^6.0.0", "@vue/devtools-api@^6.0.0-beta.11":
+"@vue/devtools-api@^6.0.0", "@vue/devtools-api@^6.1.4":
   "integrity" "sha512-IiA0SvDrJEgXvVxjNkHPFfDx6SXw0b/TUkqMcDZWNg9fnCAHbTpoo59YfJ9QLFkwa3raau5vSlRVzMSLDnfdtQ=="
   "resolved" "http://snpm.cnsuning.com/@vue%2fdevtools-api/-/devtools-api-6.1.4.tgz"
   "version" "6.1.4"
@@ -1893,6 +1893,14 @@
   "resolved" "http://snpm.cnsuning.com/pidtree/-/pidtree-0.5.0.tgz"
   "version" "0.5.0"
 
+"pinia@^2.0.13":
+  "integrity" "sha512-B7rSqm1xNpwcPMnqns8/gVBfbbi7lWTByzS6aPZ4JOXSJD4Y531rZHDCoYWBwLyHY/8hWnXljgiXp6rRyrofcw=="
+  "resolved" "https://registry.npmmirror.com/pinia/-/pinia-2.0.13.tgz"
+  "version" "2.0.13"
+  dependencies:
+    "@vue/devtools-api" "^6.1.4"
+    "vue-demi" "*"
+
 "postcss@^8.1.10", "postcss@^8.4.12":
   "integrity" "sha512-lg6eITwYe9v6Hr5CncVbK70SoioNQIq81nsaG86ev5hAidQvmOeETBqs7jm43K2F5/Ley3ytDtriImV6TpNiSg=="
   "resolved" "http://snpm.cnsuning.com/postcss/-/postcss-8.4.12.tgz"
@@ -2374,7 +2382,7 @@
   "resolved" "http://snpm.cnsuning.com/type-fest/-/type-fest-0.21.3.tgz"
   "version" "0.21.3"
 
-"typescript@*", "typescript@^4.5.4", "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta":
+"typescript@*", "typescript@^4.5.4", "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta", "typescript@>=4.4.4":
   "integrity" "sha512-yNIatDa5iaofVozS/uQJEl3JRWLKKGJKh6Yaiv0GLGSuhpFJe7P3SbHZ8/yjAHRQwKRoA6YZqlfjXWmVzoVSMw=="
   "resolved" "http://snpm.cnsuning.com/typescript/-/typescript-4.6.3.tgz"
   "version" "4.6.3"
@@ -2559,7 +2567,7 @@
 
 "vue-demi@*":
   "integrity" "sha512-BREuTgTYlUr0zw0EZn3hnhC3I6gPWv+Kwh4MCih6QcAeaTlaIX0DwOVN0wHej7hSvDPecz4jygy/idsgKfW58Q=="
-  "resolved" "http://snpm.cnsuning.com/vue-demi/-/vue-demi-0.12.5.tgz"
+  "resolved" "https://registry.npmmirror.com/vue-demi/-/vue-demi-0.12.5.tgz"
   "version" "0.12.5"
 
 "vue-eslint-parser@^8.0.1":
@@ -2590,7 +2598,7 @@
     "@volar/shared" "0.29.8"
     "vscode-vue-languageservice" "0.29.8"
 
-"vue@^2.6.0 || ^3.2.0", "vue@^3.0.0-0 || ^2.6.0", "vue@^3.0.2", "vue@^3.2.0", "vue@^3.2.25", "vue@3.2.32":
+"vue@^2.6.0 || ^3.2.0", "vue@^2.6.14 || ^3.2.0", "vue@^3.0.0-0 || ^2.6.0", "vue@^3.2.0", "vue@^3.2.25", "vue@3.2.32":
   "integrity" "sha512-6L3jKZApF042OgbCkh+HcFeAkiYi3Lovi8wNhWqIK98Pi5efAMLZzRHgi91v+60oIRxdJsGS9sTMsb+yDpY8Eg=="
   "resolved" "http://snpm.cnsuning.com/vue/-/vue-3.2.32.tgz"
   "version" "3.2.32"
@@ -2600,13 +2608,6 @@
     "@vue/runtime-dom" "3.2.32"
     "@vue/server-renderer" "3.2.32"
     "@vue/shared" "3.2.32"
-
-"vuex@^4.0.2":
-  "integrity" "sha1-+Jbb1b8qDpY/AMZ+m2EN50nMrMk="
-  "resolved" "http://snpm.cnsuning.com/vuex/-/vuex-4.0.2.tgz"
-  "version" "4.0.2"
-  dependencies:
-    "@vue/devtools-api" "^6.0.0-beta.11"
 
 "which-boxed-primitive@^1.0.2":
   "integrity" "sha1-E3V7yJsgmwSf5dhkMOIc9AqJqOY="

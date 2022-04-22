@@ -2,16 +2,17 @@
  * @Author: MuYuCat
  * @Date: 2022-04-19 11:58:49
  * @LastEditors: MuYuCat
- * @LastEditTime: 2022-04-22 15:02:12
+ * @LastEditTime: 2022-04-22 16:06:02
  * @Description: file content
  */
 import request from './request';
+import host from '../utils/host';
 
 // 达人账号管理
 export const findAll = () => {
   return request({
     // url: '/api/users/findAll',
-    url: 'http://127.0.0.1:7001/users/findAll',
+    url: `${host}/users/findAll`,
     method: 'get'
   });
 };
@@ -19,8 +20,8 @@ export const findAll = () => {
 // 获取用户信息
 export const getUserInfo = () => {
   return request({
-    // url: '/api/users/findAll',
-    url: 'http://127.0.0.1:7001/users/getUserInfo',
+    // url: '/api/users/getUserInfo',
+    url: `${host}/users/getUserInfo`,
     method: 'get'
   });
 };

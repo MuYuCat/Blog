@@ -1,27 +1,13 @@
-import { createStore } from 'vuex';
+/*
+ * @Author: MuYuCat
+ * @Date: 2022-04-22 17:43:10
+ * @LastEditors: MuYuCat
+ * @LastEditTime: 2022-04-22 17:43:27
+ * @Description: file content
+ */
 
-const defaultState = {
-  count: 0
-};
+import { createPinia } from 'pinia';
 
-// Create a new store instance.
-export default createStore({
-  state() {
-    return defaultState;
-  },
-  mutations: {
-    increment(state: typeof defaultState) {
-      state.count += 1;
-    }
-  },
-  actions: {
-    increment(context) {
-      context.commit('increment');
-    }
-  },
-  getters: {
-    double(state: typeof defaultState) {
-      return 2 * state.count;
-    }
-  }
-});
+const store = createPinia();
+
+export default store;

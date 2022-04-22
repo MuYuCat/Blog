@@ -2,7 +2,7 @@
  * @Author: MuYuCat
  * @Date: 2022-04-19 11:58:49
  * @LastEditors: MuYuCat
- * @LastEditTime: 2022-04-21 14:37:16
+ * @LastEditTime: 2022-04-22 17:07:14
  * @Description: file content
  */
 import { defineConfig } from 'vite';
@@ -21,17 +21,6 @@ export default defineConfig({
   publicDir: 'public',
   base: '/', // 打包路径
   server: {
-    proxy: {
-      '/api': {
-        // target: 'http://muyucat.com',
-        target: 'http://localhost:7001/',
-        changeOrigin: true,
-        secure: false,
-        pathRewrite: {
-          '^/api': '/'
-        }
-      }
-    },
     port: 8080, // 设置服务启动端口号
     open: true, // 设置服务启动时是否自动打开浏览器
     cors: true // 允许跨域

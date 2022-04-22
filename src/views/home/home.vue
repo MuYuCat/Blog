@@ -2,7 +2,7 @@
  * @Author: MuYuCat
  * @Date: 2022-04-19 11:58:49
  * @LastEditors: MuYuCat
- * @LastEditTime: 2022-04-22 15:08:12
+ * @LastEditTime: 2022-04-22 17:54:07
  * @Description: file content
 -->
 <template>
@@ -15,8 +15,8 @@
     <el-button plain size="large" @click="turnLeft" v-if="!isLogIn">请右上角登陆</el-button>
     <div class="show-content" v-else>
       <div>登陆成功</div>
-      <div>username: {{ userInfo.username }}</div>
-      <div>id: {{ userInfo.id }}</div>
+      <div>username: {{ userInfo?.username }}</div>
+      <div>id: {{ userInfo?.id }}</div>
     </div>
     <v-footer></v-footer>
   </div>
@@ -28,7 +28,9 @@ import login from '@/components/login.vue';
 import footer from '@/components/footer.vue';
 // import clickPage from './components/clickPage.vue';
 import { findAll, getUserInfo } from '../../api/home';
+import { useUserStore } from '@/store/user';
 
+const userStore = useUserStore();
 export default {
   name: 'BlogHome',
   components: {
@@ -50,6 +52,8 @@ export default {
   created() {
     this.showFindAll();
     this.getUserInfo();
+    console.log(userStore.username);
+    userStore.updateName('里斯');
   },
   methods: {
     turnLeft() {
@@ -62,9 +66,11 @@ export default {
     },
     async getUserInfo() {
       await getUserInfo().then((res) => {
-        console.log('getUserInfo', res);
-        this.isLogIn = true;
-        this.userInfo = res.data;
+        if (res && res.data) {
+          console.log('getUserInfo', res);
+          this.isLogIn = true;
+          this.userInfo = res.data;
+        }
       });
     }
   }

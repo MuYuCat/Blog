@@ -2,7 +2,7 @@
  * @Author: MuYuCat
  * @Date: 2022-04-14 16:32:47
  * @LastEditors: MuYuCat
- * @LastEditTime: 2022-04-19 17:08:53
+ * @LastEditTime: 2022-04-22 16:23:39
  * @Description: README
 -->
 # MuYuCat's Blog
@@ -57,21 +57,7 @@
       proxy_pass http://127.0.0.1:7001/;
     }
   ```
-  2. 修改vite.config
-  ```
-    在server中设置
-      proxy: {
-        '/api': {
-          target: 'http://muyucat.com',
-          changeOrigin: true,
-          secure: false,
-          pathRewrite: {
-            '^/api': '/'
-          }
-        }
-      },
-  ```
-  3. 修改接口设计文件api
+  2. 修改接口设计文件api
   ```
     设置接口路径url
     const findAll = () => {

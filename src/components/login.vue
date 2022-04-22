@@ -2,7 +2,7 @@
  * @Author: MuYuCat
  * @Date: 2022-04-14 16:32:47
  * @LastEditors: MuYuCat
- * @LastEditTime: 2022-04-22 14:01:20
+ * @LastEditTime: 2022-04-22 17:04:48
  * @Description: file content
 -->
 <template>
@@ -60,7 +60,7 @@
           登陆
         </el-button>
         <div class="footer-agreement">
-          登录即同意
+          登录即表示同意
           <el-popover
             placement="bottom-start"
             :width="200"

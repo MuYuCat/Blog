@@ -2,17 +2,18 @@
  * @Author: MuYuCat
  * @Date: 2022-04-21 15:03:38
  * @LastEditors: MuYuCat
- * @LastEditTime: 2022-04-21 16:33:14
+ * @LastEditTime: 2022-04-22 16:06:35
  * @Description: api of login
  */
 
 import request from './request';
+import host from '../utils/host';
 
 // 达人账号管理
 const login = (data: any) => {
   return request({
-    // url: '/api/users/findAll',
-    url: 'http://127.0.0.1:7001/users/login',
+    // url: '/api/users/login',
+    url: `${host}/users/login`,
     method: 'post',
     data
   });
