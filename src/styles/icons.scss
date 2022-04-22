@@ -1,0 +1,29 @@
+// TODO icons 样式表，统一命名为 icons-xxxx ，存放在assets/images/icons/ 目录下
+@mixin icons($name:'',$width:24px,$height:24px,$bgSize:100%,$va:middle){
+  display: inline-block;
+  background:url('@/assets/images/icons/#{$name}') no-repeat center center;
+  width:$width;
+  height:$height;
+  background-size:$bgSize;
+  vertical-align: $va;
+}
+
+.icons-muyucat-white {
+  @include icons('muyucat-white.png', 24px, 24px);
+  &.big {
+    @include icons('muyucat-white.png', 48px, 48px);
+  }
+}
+
+.icons-muyucat-gary {
+  @include icons('muyucat-gary.png', 24px, 24px);
+  &.big {
+    @include icons('muyucat-gary.png', 48px, 48px);
+  }
+}
+.icons-user {
+  @include icons('user.png', 24px, 24px);
+}
+.icons-password {
+  @include icons('password.png', 24px, 24px);
+}

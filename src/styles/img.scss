@@ -1,0 +1,12 @@
+@mixin img($name:'',$width:24px,$height:24px,$bgSize:100%,$va:middle){
+  display: inline-block;
+  background:url('@/assets/images/#{$name}') no-repeat center center;
+  width:$width;
+  height:$height;
+  background-size:$bgSize;
+  vertical-align: $va;
+}
+
+.img-banner{
+  @include img('banner.png', 0, 175px, cover, no-repeat);
+}

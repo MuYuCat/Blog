@@ -1,3 +1,10 @@
+<!--
+ * @Author: MuYuCat
+ * @Date: 2022-04-14 16:32:47
+ * @LastEditors: MuYuCat
+ * @LastEditTime: 2022-04-20 11:57:32
+ * @Description: file content
+-->
 <template>
   <div class="page-wrap">
     <el-card>
@@ -10,11 +17,11 @@
 export default {
   name: 'BlogDemo',
   data() {
-    return {}
+    return {};
   },
   mounted() {},
   methods: {}
-}
+};
 </script>
 
 <style scoped lang="scss">

@@ -1,14 +1,21 @@
+/*
+ * @Author: MuYuCat
+ * @Date: 2022-04-19 11:58:49
+ * @LastEditors: MuYuCat
+ * @LastEditTime: 2022-04-21 14:37:16
+ * @Description: file content
+ */
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 // 如果编辑器提示 path 模块找不到，则可以安装一下 @types/node -> npm i @types/node -D
-import { resolve } from 'path';
+import * as path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
-      '@': resolve('/src') // 设置 `@` 指向 `src` 目录
+      '@': path.resolve(__dirname, 'src') // 设置 `@` 指向 `src` 目录
     }
   },
   publicDir: 'public',
@@ -16,7 +23,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://muyucat.com',
+        // target: 'http://muyucat.com',
+        target: 'http://localhost:7001/',
         changeOrigin: true,
         secure: false,
         pathRewrite: {

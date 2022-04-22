@@ -1,3 +1,10 @@
+/*
+ * @Author: MuYuCat
+ * @Date: 2022-04-19 11:58:49
+ * @LastEditors: MuYuCat
+ * @LastEditTime: 2022-04-22 14:25:40
+ * @Description: file content
+ */
 module.exports = {
   env: {
     browser: true,
@@ -33,7 +40,8 @@ module.exports = {
           'request', // for Express requests
           'res', // for Express responses
           'response', // for Express responses
-          'state' // for vuex state
+          'state', // for vuex state
+          'config' // for token
         ]
       }
     ]

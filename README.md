@@ -2,7 +2,7 @@
  * @Author: MuYuCat
  * @Date: 2022-04-14 16:32:47
  * @LastEditors: MuYuCat
- * @LastEditTime: 2022-04-19 17:03:50
+ * @LastEditTime: 2022-04-19 17:08:53
  * @Description: README
 -->
 # MuYuCat's Blog
@@ -14,9 +14,9 @@
 ```
 .
 ├── .husky  # Git Hook 工具，可以设置在 git 各个阶段触发我们的命令。
-│   └──pre-commit  # pre-commit hook
+│   └──pre-commit               # pre-commit hook
 ├── public
-│   └── Mlogo.ico  # 页面图标
+│   └── Mlogo.ico               # 页面图标
 ├── src 
 │   ├── api                     # 接口文件
 │   │   ├── home                # 主页面接口文件

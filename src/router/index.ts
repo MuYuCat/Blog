@@ -1,8 +1,8 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
-const Demo = () => import('@/views/Demo.vue')
-const page404 = () => import('@/views/404.vue')
-const Home = () => import('@/views/home/home.vue')
+const Demo = () => import('@/views/Demo.vue');
+const page404 = () => import('@/views/404.vue');
+const Home = () => import('@/views/home/home.vue');
 // const clickPage = () => import('@/views/clickPage/clickPage.vue')
 
 const routes: Array<RouteRecordRaw> = [
@@ -38,11 +38,11 @@ const routes: Array<RouteRecordRaw> = [
       title: ''
     }
   }
-]
+];
 
 const router = createRouter({
   history: createWebHistory(),
   routes
-})
+});
 
-export default router
+export default router;
