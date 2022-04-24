@@ -2,7 +2,7 @@
  * @Author: MuYuCat
  * @Date: 2022-04-14 16:32:47
  * @LastEditors: MuYuCat
- * @LastEditTime: 2022-04-24 14:57:23
+ * @LastEditTime: 2022-04-24 17:52:17
  * @Description: file content
 -->
 <template>
@@ -13,8 +13,8 @@
         <span class="header-name">MuYuCat</span>
       </span>
       <span class="header-right">
-        <el-button plain size="large" @click="openLogin" v-if="showLogInBtn">登陆</el-button>
-        <v-avatar v-model:showAvatar="showAvatar"></v-avatar>
+        <el-button plain size="large" @click="openLogin" v-if="!isLogIn">登陆</el-button>
+        <v-avatar v-else></v-avatar>
       </span>
     </div>
     <v-login v-model:showLogIn="showLogIn"></v-login>
@@ -23,6 +23,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue';
+import { storeToRefs } from 'pinia';
 
 import useUserStore from '../store/user';
 import login from '@/components/login.vue';
@@ -30,8 +31,6 @@ import avatar from '@/components/avatar.vue';
 
 interface IDataProps {
   showLogIn: boolean;
-  showLogInBtn: boolean;
-  showAvatar: boolean;
   openLogin: () => void;
 }
 
@@ -43,16 +42,16 @@ export default defineComponent({
   },
   setup() {
     const userStore = useUserStore();
+    const { isLogIn } = storeToRefs(userStore);
+
     const data: IDataProps = reactive({
       showLogIn: false,
-      showLogInBtn: userStore.showLogInBtn,
-      showAvatar: !userStore.showLogInBtn,
       openLogin() {
-        console.log('openLogin', data.showLogIn);
         data.showLogIn = true;
       }
     });
     return {
+      isLogIn,
       ...toRefs(data)
     };
   }

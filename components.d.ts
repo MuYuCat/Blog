@@ -8,6 +8,7 @@ declare module '@vue/runtime-core' {
     Avatar: typeof import('./src/components/avatar.vue')['default'];
     ElAvatar: typeof import('element-plus/es')['ElAvatar'];
     ElButton: typeof import('element-plus/es')['ElButton'];
+    ElCard: typeof import('element-plus/es')['ElCard'];
     ElDialog: typeof import('element-plus/es')['ElDialog'];
     ElForm: typeof import('element-plus/es')['ElForm'];
     ElFormItem: typeof import('element-plus/es')['ElFormItem'];
@@ -16,6 +17,7 @@ declare module '@vue/runtime-core' {
     Footer: typeof import('./src/components/footer.vue')['default'];
     Header: typeof import('./src/components/header.vue')['default'];
     Login: typeof import('./src/components/login.vue')['default'];
+    MuYUCat: typeof import('./src/components/MuYUCat.vue')['default'];
     RouterLink: typeof import('vue-router')['RouterLink'];
     RouterView: typeof import('vue-router')['RouterView'];
   }

@@ -2,7 +2,7 @@
  * @Author: MuYuCat
  * @Date: 2022-04-14 16:32:47
  * @LastEditors: MuYuCat
- * @LastEditTime: 2022-04-24 14:41:38
+ * @LastEditTime: 2022-04-24 16:00:48
  * @Description: LogIn弹框
 -->
 <template>
@@ -81,6 +81,7 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs, markRaw } from 'vue';
 import 'element-plus/es/components/message/style/css';
+
 import { ElMessage } from 'element-plus';
 import { Avatar, Lock } from '@element-plus/icons-vue';
 import useUserStore from '../store/user';
@@ -108,6 +109,7 @@ interface IDataProps {
   rules: IRules;
   closeDialog: () => void;
   confirmLogin: () => void;
+  forgotMsg: () => void;
 }
 
 export default defineComponent({
@@ -146,11 +148,10 @@ export default defineComponent({
           try {
             // 接口登陆校验逻辑
             const res = await login(this.loginForm);
-            console.log('isToken', res);
             // 存储token
             localStorage.setItem('isToken', res?.data?.token);
             // 更改登录按钮状态
-            userStore.isShowLogInBtn(false);
+            userStore.updateIsLogIn(true);
             // 存储token校验
             if ((res as any).msg) {
               ElMessage({
@@ -168,6 +169,12 @@ export default defineComponent({
             }
           }
           return '';
+        });
+      },
+      forgotMsg() {
+        ElMessage({
+          message: '忘记就忘记了，功能太多写不过来，等待后续完善！',
+          type: 'warning'
         });
       }
     });

@@ -2,7 +2,7 @@
  * @Author: MuYuCat
  * @Date: 2022-04-19 11:58:49
  * @LastEditors: MuYuCat
- * @LastEditTime: 2022-04-24 14:12:20
+ * @LastEditTime: 2022-04-24 16:37:48
  * @Description: file content
 -->
 <template>
@@ -22,10 +22,13 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs, onMounted } from 'vue';
+import { storeToRefs } from 'pinia';
 
 import header from '@/components/header.vue';
 import footer from '@/components/footer.vue';
 import { findAll, getUserInfo } from '../../api/home';
+import useUserStore from '../../store/user';
+import showText from './components/showLog';
 
 interface IUserInfo {
   username: string;
@@ -34,9 +37,8 @@ interface IUserInfo {
 
 interface IDataProps {
   resultString: string;
-  isLogIn: boolean;
   userInfo: IUserInfo;
-  turnLeft: () => void;
+  // turnLeft: () => void;
   showFindAll: () => void;
   getUserInfo: () => void;
 }
@@ -48,25 +50,24 @@ export default defineComponent({
     'v-footer': footer
   },
   setup() {
+    const userStore = useUserStore();
+    const { isLogIn } = storeToRefs(userStore);
     const data: IDataProps = reactive({
       resultString: '',
-      isLogIn: false,
       userInfo: {
         username: '',
         id: ''
       },
-      turnLeft() {
-        console.log('turn leftPage');
-      },
+      // turnLeft() {
+      //   console.log('turn leftPage');
+      // },
       async showFindAll() {
-        const res = await findAll();
-        console.log(res);
+        await findAll();
       },
       async getUserInfo() {
         await getUserInfo().then((res) => {
           if (res && res.data) {
-            console.log('getUserInfo', res);
-            data.isLogIn = true;
+            userStore.updateIsLogIn(true);
             data.userInfo = res.data;
           }
         });
@@ -75,8 +76,10 @@ export default defineComponent({
     onMounted(() => {
       data.showFindAll();
       data.getUserInfo();
+      showText();
     });
     return {
+      isLogIn,
       ...toRefs(data)
     };
   }

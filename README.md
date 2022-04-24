@@ -2,7 +2,7 @@
  * @Author: MuYuCat
  * @Date: 2022-04-14 16:32:47
  * @LastEditors: MuYuCat
- * @LastEditTime: 2022-04-22 16:23:39
+ * @LastEditTime: 2022-04-24 15:07:22
  * @Description: README
 -->
 # MuYuCat's Blog
@@ -81,6 +81,7 @@
 ```
   1. 2022/04/14 项目架构重构
   2. 2020/04/19 项目前后端部署
+  3. 2020/04/24 项目语法升级至vue3+ts
 ```
 
 > 道阻且长
