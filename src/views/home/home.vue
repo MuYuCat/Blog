@@ -2,14 +2,12 @@
  * @Author: MuYuCat
  * @Date: 2022-04-19 11:58:49
  * @LastEditors: MuYuCat
- * @LastEditTime: 2022-04-22 17:54:07
+ * @LastEditTime: 2022-04-24 14:12:20
  * @Description: file content
 -->
 <template>
   <div class="wrapper blog-wrapper">
-    <!-- <v-clickPage></v-clickPage> -->
     <v-header></v-header>
-    <v-login></v-login>
     <a class="img-banner banner-show"></a>
     <div class="show-content">MuYuCat's Blog</div>
     <el-button plain size="large" @click="turnLeft" v-if="!isLogIn">请右上角登陆</el-button>
@@ -22,59 +20,67 @@
   </div>
 </template>
 
-<script>
-import header from '@/components/header.vue';
-import login from '@/components/login.vue';
-import footer from '@/components/footer.vue';
-// import clickPage from './components/clickPage.vue';
-import { findAll, getUserInfo } from '../../api/home';
-import { useUserStore } from '@/store/user';
+<script lang="ts">
+import { defineComponent, reactive, toRefs, onMounted } from 'vue';
 
-const userStore = useUserStore();
-export default {
+import header from '@/components/header.vue';
+import footer from '@/components/footer.vue';
+import { findAll, getUserInfo } from '../../api/home';
+
+interface IUserInfo {
+  username: string;
+  id: string;
+}
+
+interface IDataProps {
+  resultString: string;
+  isLogIn: boolean;
+  userInfo: IUserInfo;
+  turnLeft: () => void;
+  showFindAll: () => void;
+  getUserInfo: () => void;
+}
+
+export default defineComponent({
   name: 'BlogHome',
   components: {
     'v-header': header,
-    'v-login': login,
     'v-footer': footer
-    // 'v-clickPage': clickPage
   },
-  data() {
-    return {
+  setup() {
+    const data: IDataProps = reactive({
       resultString: '',
       isLogIn: false,
       userInfo: {
         username: '',
         id: ''
+      },
+      turnLeft() {
+        console.log('turn leftPage');
+      },
+      async showFindAll() {
+        const res = await findAll();
+        console.log(res);
+      },
+      async getUserInfo() {
+        await getUserInfo().then((res) => {
+          if (res && res.data) {
+            console.log('getUserInfo', res);
+            data.isLogIn = true;
+            data.userInfo = res.data;
+          }
+        });
       }
+    });
+    onMounted(() => {
+      data.showFindAll();
+      data.getUserInfo();
+    });
+    return {
+      ...toRefs(data)
     };
-  },
-  created() {
-    this.showFindAll();
-    this.getUserInfo();
-    console.log(userStore.username);
-    userStore.updateName('里斯');
-  },
-  methods: {
-    turnLeft() {
-      console.log('turn leftPage');
-    },
-    async showFindAll() {
-      const res = await findAll();
-      console.log(res);
-      this.resultString = res;
-    },
-    async getUserInfo() {
-      await getUserInfo().then((res) => {
-        if (res && res.data) {
-          console.log('getUserInfo', res);
-          this.isLogIn = true;
-          this.userInfo = res.data;
-        }
-      });
-    }
   }
-};
+});
 </script>
 
 <style scoped lang="scss">

@@ -2,7 +2,7 @@
  * @Author: MuYuCat
  * @Date: 2022-04-14 16:32:47
  * @LastEditors: MuYuCat
- * @LastEditTime: 2022-04-20 15:55:10
+ * @LastEditTime: 2022-04-24 14:02:13
  * @Description: file content
 -->
 <template>
@@ -16,14 +16,25 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent, reactive, toRefs } from 'vue';
+
+interface IDataProps {
+  jump2Icp: () => void;
+}
+
+export default defineComponent({
   name: 'BlogFooter',
-  methods: {
-    jump2Icp() {
-      window.location.href = 'https://beian.miit.gov.cn/#/Integrated/recordQuery';
-    }
+  setup() {
+    const data: IDataProps = reactive({
+      jump2Icp() {
+        window.location.href = 'https://beian.miit.gov.cn/#/Integrated/recordQuery';
+      }
+    });
+    return {
+      ...toRefs(data)
+    };
   }
-};
+});
 </script>
 
 <style scoped lang="scss">

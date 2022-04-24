@@ -1,6 +1,6 @@
 <template>
   <div class="allPage">
-    <div class="loding" :class="isShowBreak ? 'showBreaking' : 'bkc'" v-if="!isCloseText">
+    <div class="loading" :class="isShowBreak ? 'showBreaking' : 'bkc'" v-if="!isCloseText">
       <div class="hello">MuYuCat's Blog</div>
       <div class="click" @click="brokePage()">
         <div class="text-magic" @mouseenter="magicShow">
@@ -15,49 +15,58 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, reactive, toRefs } from 'vue';
+import { useRouter } from 'vue-router';
+
+interface IDataProps {
+  isShowMagic: boolean;
+  isShowBreak: boolean;
+  isCloseText: boolean;
+  magicShow: () => void;
+  closeText: () => void;
+  closePage: () => void;
+  brokePage: () => void;
+}
 
 export default defineComponent({
+  name: 'ClickPAge',
   emits: ['closePage'],
-  data() {
-    return {
+  setup() {
+    const router = useRouter();
+    const data: IDataProps = reactive({
       isShowMagic: false, // 是否展示字体抖音效果
       isShowBreak: false, // 是否展示页面过渡效果
-      isCloseText: false // 是否提前去除字体
-    }
-  },
-  created() {
-    setTimeout(() => {
-      this.magicShow()
-    }, 5000)
-  },
-  methods: {
-    magicShow() {
-      if (!this.isShowMagic) {
-        this.isShowMagic = true
-        // console.log('magic time!')
+      isCloseText: false, // 是否提前去除字体
+      magicShow() {
+        if (!data.isShowMagic) {
+          data.isShowMagic = true;
+          // console.log('magic time!')
+        }
+      },
+      closeText() {
+        setTimeout(() => {
+          data.isCloseText = true;
+        }, 200);
+      },
+      closePage() {
+        setTimeout(() => {
+          router.push('/blog');
+        }, 1000);
+      },
+      brokePage() {
+        data.isShowBreak = true;
+        // console.log('brokePage')
+        // 先关闭字体
+        data.closeText();
+        // 再关闭页面
+        data.closePage();
       }
-    },
-    closeText() {
-      setTimeout(() => {
-        this.isCloseText = true
-      }, 200)
-    },
-    closePage() {
-      setTimeout(() => {
-        this.$router.push('/blog')
-      }, 1000)
-    },
-    brokePage() {
-      this.isShowBreak = true
-      // console.log('brokePage')
-      // 先关闭字体
-      this.closeText()
-      // 再关闭页面
-      this.closePage()
-    }
+    });
+    return {
+      ...toRefs(data)
+    };
   }
-})
+});
 </script>
 
 <style scoped lang="scss">
@@ -67,7 +76,7 @@ export default defineComponent({
   right: 0;
   bottom: 0;
   top: 0;
-  .loding {
+  .loading {
     width: 100%;
     height: 100%;
     filter: contrast(20);

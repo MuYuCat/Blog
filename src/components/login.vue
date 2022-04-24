@@ -2,8 +2,8 @@
  * @Author: MuYuCat
  * @Date: 2022-04-14 16:32:47
  * @LastEditors: MuYuCat
- * @LastEditTime: 2022-04-22 17:04:48
- * @Description: file content
+ * @LastEditTime: 2022-04-24 14:41:38
+ * @Description: LogIn弹框
 -->
 <template>
   <el-dialog
@@ -32,7 +32,7 @@
         style="max-width: 460px"
         size="large"
         :rules="rules"
-        ref="loginForm"
+        ref="loginFormVal"
       >
         <el-form-item prop="username">
           <el-input
@@ -78,12 +78,39 @@
   </el-dialog>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, reactive, toRefs, markRaw } from 'vue';
+import 'element-plus/es/components/message/style/css';
+import { ElMessage } from 'element-plus';
 import { Avatar, Lock } from '@element-plus/icons-vue';
-import { markRaw } from 'vue';
+import useUserStore from '../store/user';
+
 import login from '../api/login';
 
-export default {
+interface ILoginForm {
+  username: string;
+  password: string;
+}
+
+interface Icon {
+  user: any;
+  password: any;
+}
+interface IRules {
+  username: any[];
+  password: any[];
+}
+
+interface IDataProps {
+  loginForm: ILoginForm;
+  loginFormVal: any;
+  icon: Icon;
+  rules: IRules;
+  closeDialog: () => void;
+  confirmLogin: () => void;
+}
+
+export default defineComponent({
   name: 'LogIn',
   props: {
     showLogIn: {
@@ -91,10 +118,9 @@ export default {
       default: false
     }
   },
-  data() {
-    return {
-      // Avatar,
-      // Lock,
+  setup(prop, ctx) {
+    const userStore = useUserStore();
+    const data: IDataProps = reactive({
       loginForm: {
         username: '',
         password: ''
@@ -106,52 +132,50 @@ export default {
       rules: {
         username: [{ required: true, message: 'Please input Account name', trigger: 'blur' }],
         password: [{ required: true, message: 'Please input Account password', trigger: 'blur' }]
+      },
+      closeDialog() {
+        data.loginForm = { username: '', password: '' };
+        ctx.emit('update:showLogIn', false);
+      },
+      loginFormVal: reactive({}),
+      async confirmLogin() {
+        (data.loginFormVal as any).validate(async (valid: boolean) => {
+          if (!valid) {
+            return false;
+          }
+          try {
+            // 接口登陆校验逻辑
+            const res = await login(this.loginForm);
+            console.log('isToken', res);
+            // 存储token
+            localStorage.setItem('isToken', res?.data?.token);
+            // 更改登录按钮状态
+            userStore.isShowLogInBtn(false);
+            // 存储token校验
+            if ((res as any).msg) {
+              ElMessage({
+                message: (res as any).msg,
+                type: 'success'
+              });
+            }
+            this.closeDialog();
+          } catch (error: any) {
+            if (error.msg) {
+              ElMessage({
+                message: error.msg,
+                type: 'error'
+              });
+            }
+          }
+          return '';
+        });
       }
+    });
+    return {
+      ...toRefs(data)
     };
-  },
-  methods: {
-    closeDialog() {
-      this.loginForm = {};
-      this.$emit('update:showLogIn', false);
-    },
-    confirmLogin() {
-      this.$refs.loginForm.validate(async (valid) => {
-        if (!valid) {
-          return false;
-        }
-        try {
-          // 接口登陆校验逻辑
-          const res = await login(this.loginForm);
-          console.log('isToken', res);
-          // 存储token
-          localStorage.setItem('isToken', res?.data?.token);
-          // 存储token校验
-          if (res.msg) {
-            this.$message({
-              message: res.msg,
-              type: 'success'
-            });
-          }
-          this.closeDialog();
-        } catch (error) {
-          if (error.msg) {
-            this.$message({
-              message: error.msg,
-              type: 'error'
-            });
-          }
-        }
-        return '';
-      });
-    },
-    forgotMsg() {
-      this.$message({
-        message: '忘记就忘记了，功能太多写不过来，等待后续完善！',
-        type: 'warning'
-      });
-    }
   }
-};
+});
 </script>
 
 <style lang="scss">

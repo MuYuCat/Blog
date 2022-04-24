@@ -2,7 +2,7 @@
  * @Author: MuYuCat
  * @Date: 2022-04-14 16:32:47
  * @LastEditors: MuYuCat
- * @LastEditTime: 2022-04-21 10:43:28
+ * @LastEditTime: 2022-04-24 14:57:23
  * @Description: file content
 -->
 <template>
@@ -13,33 +13,50 @@
         <span class="header-name">MuYuCat</span>
       </span>
       <span class="header-right">
-        <el-button plain size="large" @click="openLogin">登陆</el-button>
+        <el-button plain size="large" @click="openLogin" v-if="showLogInBtn">登陆</el-button>
+        <v-avatar v-model:showAvatar="showAvatar"></v-avatar>
       </span>
     </div>
-    <v-login :showLogIn="showLogIn" @update:showLogIn="showLogIn = $event"></v-login>
+    <v-login v-model:showLogIn="showLogIn"></v-login>
   </div>
 </template>
 
-<script>
-import login from '@/components/login.vue';
+<script lang="ts">
+import { defineComponent, reactive, toRefs } from 'vue';
 
-export default {
+import useUserStore from '../store/user';
+import login from '@/components/login.vue';
+import avatar from '@/components/avatar.vue';
+
+interface IDataProps {
+  showLogIn: boolean;
+  showLogInBtn: boolean;
+  showAvatar: boolean;
+  openLogin: () => void;
+}
+
+export default defineComponent({
   name: 'BlogHeader',
   components: {
-    'v-login': login
+    'v-login': login,
+    'v-avatar': avatar
   },
-  data() {
+  setup() {
+    const userStore = useUserStore();
+    const data: IDataProps = reactive({
+      showLogIn: false,
+      showLogInBtn: userStore.showLogInBtn,
+      showAvatar: !userStore.showLogInBtn,
+      openLogin() {
+        console.log('openLogin', data.showLogIn);
+        data.showLogIn = true;
+      }
+    });
     return {
-      showLogIn: false
+      ...toRefs(data)
     };
-  },
-  methods: {
-    openLogin() {
-      console.log('openLogin', this.showLogIn);
-      this.showLogIn = true;
-    }
   }
-};
+});
 </script>
 
 <style scoped lang="scss">

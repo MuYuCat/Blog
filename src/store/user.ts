@@ -1,11 +1,10 @@
 /*
  * @Author: MuYuCat
- * @Date: 2022-04-22 17:44:38
+ * @Date: 2022-04-24 14:20:36
  * @LastEditors: MuYuCat
- * @LastEditTime: 2022-04-22 17:56:55
+ * @LastEditTime: 2022-04-24 14:37:06
  * @Description: file content
  */
-// src/store/user.ts
 
 import { defineStore } from 'pinia';
 
@@ -13,23 +12,17 @@ const useUserStore = defineStore({
   id: 'user', // id必填，且需要唯一
   state: () => {
     return {
-      name: '张三'
+      showLogInBtn: true
     };
   },
   actions: {
-    updateName(name: string) {
-      this.name = name;
+    isShowLogInBtn(value: boolean) {
+      this.showLogInBtn = value;
     }
-    // async login(account: any, pwd: any) {
-    //   const { data } = await api.login(account, pwd);
-    //   this.updateName(data);
-    //   return data;
-    // }
   },
-  getters: {
-    fullName: (state) => {
-      return `${state.name}丰`;
-    }
+  // 开启数据缓存
+  persist: {
+    enabled: true
   }
 });
 

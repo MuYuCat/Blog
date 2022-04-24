@@ -2,11 +2,11 @@
  * @Author: MuYuCat
  * @Date: 2022-04-22 15:54:12
  * @LastEditors: MuYuCat
- * @LastEditTime: 2022-04-22 17:09:19
+ * @LastEditTime: 2022-04-24 15:02:03
  * @Description: file content
  */
 
-const env = 'DEV';
+const env = 'PRD';
 console.log('env:', env);
 // 可直接手动切换环境 DEV / PRD
 

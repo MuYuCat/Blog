@@ -2,7 +2,7 @@
  * @Author: MuYuCat
  * @Date: 2022-04-14 16:32:47
  * @LastEditors: MuYuCat
- * @LastEditTime: 2022-04-20 11:57:32
+ * @LastEditTime: 2022-04-24 10:00:29
  * @Description: file content
 -->
 <template>
@@ -13,15 +13,12 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'BlogDemo',
-  data() {
-    return {};
-  },
-  mounted() {},
-  methods: {}
-};
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'BlogDemo'
+});
 </script>
 
 <style scoped lang="scss">

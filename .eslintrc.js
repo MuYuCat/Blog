@@ -2,7 +2,7 @@
  * @Author: MuYuCat
  * @Date: 2022-04-19 11:58:49
  * @LastEditors: MuYuCat
- * @LastEditTime: 2022-04-22 14:25:40
+ * @LastEditTime: 2022-04-24 11:05:35
  * @Description: file content
  */
 module.exports = {
@@ -25,6 +25,7 @@ module.exports = {
   plugins: ['vue', '@typescript-eslint'],
   rules: {
     // 取消因为设置@导致的错误
+    'vue/no-v-model-argument': 'off',
     'import/no-unresolved': 'off',
     'import/extensions': 'off',
     'import/no-absolute-path': 'off',
