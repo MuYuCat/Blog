@@ -129,6 +129,16 @@
     "estree-walker" "^2.0.1"
     "picomatch" "^2.2.2"
 
+"@types/js-cookie@^3.0.2":
+  "integrity" "sha512-6+0ekgfusHftJNYpihfkMu8BWdeHs9EOJuGcSofErjstGPfPGEu9yTu4t460lTzzAMl2cM5zngQJqPMHbbnvYA=="
+  "resolved" "https://registry.npmmirror.com/@types/js-cookie/-/js-cookie-3.0.2.tgz"
+  "version" "3.0.2"
+
+"@types/js-md5@^0.4.3":
+  "integrity" "sha1-wTTLtxx1AYh2GB+IahKi+ZYqMSo="
+  "resolved" "http://snpm.cnsuning.com/@types%2fjs-md5/-/js-md5-0.4.3.tgz"
+  "version" "0.4.3"
+
 "@types/json-schema@^7.0.9":
   "integrity" "sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ=="
   "resolved" "http://snpm.cnsuning.com/@types%2fjson-schema/-/json-schema-7.0.11.tgz"
@@ -1548,6 +1558,16 @@
   "resolved" "http://snpm.cnsuning.com/isexe/-/isexe-2.0.0.tgz"
   "version" "2.0.0"
 
+"js-cookie@^3.0.1":
+  "integrity" "sha512-+0rgsUXZu4ncpPxRL+lNEptWMOWl9etvPHc/koSRp6MPwpRYAhmk0dUG00J4bxVV3r9uUzfo24wW0knS07SKSw=="
+  "resolved" "https://registry.npmmirror.com/js-cookie/-/js-cookie-3.0.1.tgz"
+  "version" "3.0.1"
+
+"js-md5@^0.7.3":
+  "integrity" "sha1-tPL7sLMnRV9ZjWcn447Ccs0Jw/I="
+  "resolved" "http://snpm.cnsuning.com/js-md5/-/js-md5-0.7.3.tgz"
+  "version" "0.7.3"
+
 "js-stringify@^1.0.2":
   "integrity" "sha1-Fzb939lyTyijaCrcYjCufk6Weds="
   "resolved" "http://snpm.cnsuning.com/js-stringify/-/js-stringify-1.0.2.tgz"
@@ -1752,6 +1772,11 @@
   "integrity" "sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q=="
   "resolved" "http://snpm.cnsuning.com/minimist/-/minimist-1.2.6.tgz"
   "version" "1.2.6"
+
+"moment@^2.29.3":
+  "integrity" "sha512-c6YRvhEo//6T2Jz/vVtYzqBzwvPT95JBQ+smCytzf7c50oMZRsR/a4w88aD34I+/QVSfnoAnSBFPJHItlOMJVw=="
+  "resolved" "https://registry.npmmirror.com/moment/-/moment-2.29.3.tgz"
+  "version" "2.29.3"
 
 "ms@^2.1.1", "ms@2.1.2":
   "integrity" "sha1-0J0fNXtEP0kzgqjrPM0YOHKuYAk="

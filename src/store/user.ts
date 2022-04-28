@@ -12,7 +12,7 @@ const useUserStore = defineStore({
   id: 'user', // id必填，且需要唯一
   state: () => {
     return {
-      isLogIn: false
+      isLogIn: false // 是否为登陆状态
     };
   },
   actions: {

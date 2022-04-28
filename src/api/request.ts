@@ -2,7 +2,7 @@
  * @Author: MuYuCat
  * @Date: 2022-04-19 11:58:49
  * @LastEditors: MuYuCat
- * @LastEditTime: 2022-04-22 14:59:55
+ * @LastEditTime: 2022-04-25 12:46:43
  * @Description: file content
  */
 import axios from 'axios';
@@ -29,7 +29,10 @@ instance.defaults.headers.common = {
 // 添加请求拦截器(post只能接受字符串类型数据)
 instance.interceptors.request.use(
   (config) => {
-    if (!(config.url as string).includes('users/login')) {
+    if (
+      !(config.url as string).includes('users/login') ||
+      !(config.url as string).includes('/weather')
+    ) {
       if (!config?.headers) {
         throw new Error(`Expected 'config' and 'config.headers' not to be undefined`);
       }
