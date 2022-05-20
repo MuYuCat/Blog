@@ -1,10 +1,3 @@
-<!--
- * @Author: MuYuCat
- * @Date: 2022-04-14 16:32:47
- * @LastEditors: MuYuCat
- * @LastEditTime: 2022-04-19 14:02:58
- * @Description: file content
--->
 <template>
   <router-view></router-view>
 </template>

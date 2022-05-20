@@ -7,15 +7,19 @@
  */
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
-const Demo = () => import('@/views/Demo.vue');
-const page404 = () => import('@/views/404.vue');
-const Home = () => import('@/views/home/home.vue');
-const clickPage = () => import('@/views/home/components/clickPage.vue');
+// web-fs
+const Demo = () => import('@/web-fs/views/Demo.vue');
+const page404 = () => import('@/web-fs/views/404.vue');
+const Home = () => import('@/web-fs/views/home/index.vue');
+const clickPage = () => import('@/web-fs/views/home/components/clickPage.vue');
+
+// web-bs
+const BackHome = () => import('@/web-bs/views/home/index.vue');
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: '/',
+    name: '/blog',
     component: Home,
     meta: {
       title: ''
@@ -33,6 +37,14 @@ const routes: Array<RouteRecordRaw> = [
     path: '/clickPage',
     name: 'clickPage',
     component: clickPage,
+    meta: {
+      title: ''
+    }
+  },
+  {
+    path: '/backBlog',
+    name: 'backBlog',
+    component: BackHome,
     meta: {
       title: ''
     }

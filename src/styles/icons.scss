@@ -1,7 +1,7 @@
 // TODO icons 样式表，统一命名为 icons-xxxx ，存放在assets/images/icons/ 目录下
 @mixin icons($name:'',$width:24px,$height:24px,$bgSize:100%,$va:middle){
   display: inline-block;
-  background:url('@/assets/images/icons/#{$name}') no-repeat center center;
+  background:url('@/assets/icons/#{$name}') no-repeat center center;
   width:$width;
   height:$height;
   background-size:$bgSize;

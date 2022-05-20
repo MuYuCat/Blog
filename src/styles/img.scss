@@ -10,3 +10,11 @@
 .img-banner{
   @include img('banner.png', 0, 175px, cover, no-repeat);
 }
+
+.img-bannerBig{
+  @include img('banner-big.jpg', 100%, 100%, cover, no-repeat);
+}
+
+.img-element{
+  @include img('element.png', 100%, 100%, cover, no-repeat);
+}

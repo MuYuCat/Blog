@@ -50,6 +50,16 @@ export default defineConfig({
         target: 'https://devapi.qweather.com/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/devWeather/, '')
+      },
+      '/poetry': {
+        target: 'https://v2.jinrishici.com/',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/poetry/, '')
+      },
+      '/hitokoto': {
+        target: 'https://v1.hitokoto.cn/',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/hitokoto/, '')
       }
     },
     port: 8080, // 设置服务启动端口号

@@ -5,18 +5,21 @@ import '@vue/runtime-core';
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    Avatar: typeof import('./src/components/avatar.vue')['default'];
+    Avatar: typeof import('./src/web-fs/components/avatar.vue')['default'];
+    Banner: typeof import('./src/web-fs/components/banner.vue')['default'];
     ElAvatar: typeof import('element-plus/es')['ElAvatar'];
     ElButton: typeof import('element-plus/es')['ElButton'];
     ElCard: typeof import('element-plus/es')['ElCard'];
     ElDialog: typeof import('element-plus/es')['ElDialog'];
     ElForm: typeof import('element-plus/es')['ElForm'];
     ElFormItem: typeof import('element-plus/es')['ElFormItem'];
+    ElImg: typeof import('element-plus/es')['ElImg'];
     ElInput: typeof import('element-plus/es')['ElInput'];
+    ElLink: typeof import('element-plus/es')['ElLink'];
     ElPopover: typeof import('element-plus/es')['ElPopover'];
-    Footer: typeof import('./src/components/footer.vue')['default'];
-    Header: typeof import('./src/components/header.vue')['default'];
-    Login: typeof import('./src/components/login.vue')['default'];
+    Footer: typeof import('./src/web-fs/components/footer.vue')['default'];
+    Header: typeof import('./src/web-fs/components/header.vue')['default'];
+    Login: typeof import('./src/web-fs/components/login.vue')['default'];
     RouterLink: typeof import('vue-router')['RouterLink'];
     RouterView: typeof import('vue-router')['RouterView'];
   }
