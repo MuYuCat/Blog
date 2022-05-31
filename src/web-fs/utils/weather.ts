@@ -11,7 +11,7 @@ import {
   getAir,
   getAstronomySun,
   getAstronomyMoon
-} from '../api/weather';
+} from '../../api/weather';
 
 const weatherStore = useWeatherStore();
 const mapStore = useMapStore();
@@ -61,7 +61,7 @@ const getNowWeatherInfo = async () => {
       weatherStore.getNowReferSources(res.refer.sources);
       weatherStore.getNowReferLicense(res.refer.license);
       weatherStore.getNowUpdateTime(res.updateTime);
-      weatherStore.getdevWeatherData(res.now);
+      weatherStore.getDevWeatherData(res.now);
     }
   });
 };

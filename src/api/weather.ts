@@ -1,7 +1,7 @@
 import moment from 'moment';
 import request from './request';
-import useMapStore from '../../store/map';
-import useWeatherStore from '../../store/weather';
+import useMapStore from '../store/map';
+import useWeatherStore from '../store/weather';
 
 const mapStore = useMapStore();
 const weatherStore = useWeatherStore();

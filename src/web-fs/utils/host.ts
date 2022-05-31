@@ -11,7 +11,7 @@ console.log('env:', env);
 // 可直接手动切换环境 DEV / PRD
 
 // dev
-const devRoute = 'http://127.0.0.1:7001';
+const devRoute = 'http://127.0.0.1:7002';
 // const devRoute = 'http://muyucat.com:8888';
 
 // TODO 请务必保障线上配置正确

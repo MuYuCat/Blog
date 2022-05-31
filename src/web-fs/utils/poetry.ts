@@ -1,14 +1,15 @@
-import { getPoetryToken, getPoetrySentence, getHitokoto } from '../api/poetry';
+import { getPoetryToken, getPoetrySentence, getHitokoto } from '../../api/poetry';
 import usePoetryStore from '../../store/poetry';
+import { POETRY_TOKEN } from '../../content';
 
 const poetryStore = usePoetryStore();
 
 // 诗歌-获取诗歌
 const getPoetry = async () => {
-  if (!localStorage.getItem('isPoetryToken')) {
+  if (!localStorage.getItem(POETRY_TOKEN)) {
     await getPoetryToken().then((res) => {
       if (`${res.status}` === 'success') {
-        localStorage.setItem('isPoetryToken', res?.data);
+        localStorage.setItem(POETRY_TOKEN, res?.data);
       }
     });
   }

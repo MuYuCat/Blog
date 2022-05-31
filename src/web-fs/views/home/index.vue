@@ -10,11 +10,13 @@
 import { defineComponent, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 
+import showText from './components/showLog';
 import header from '@/web-fs/components/header.vue';
 import footer from '@/web-fs/components/footer.vue';
-import content from '../content/index.vue';
+import content from '@/web-fs/views/content/index.vue';
 import useUserStore from '../../../store/user';
-import showText from './components/showLog';
+
+import { getInfo } from '../../../api/user';
 
 export default defineComponent({
   name: 'BlogHome',
@@ -28,12 +30,21 @@ export default defineComponent({
     const userStore = useUserStore();
     const { isLogIn } = storeToRefs(userStore);
 
+    const getUserInfo = async () => {
+      await getInfo().then((resUserInfo: any) => {
+        if (resUserInfo && resUserInfo.code === 200) {
+          userStore.updateIsLogIn(true);
+        }
+      });
+    };
+
     onMounted(async () => {
-      userStore.updateIsLogIn(false);
       showText();
+      getUserInfo();
     });
     return {
-      isLogIn
+      isLogIn,
+      getUserInfo
     };
   }
 });

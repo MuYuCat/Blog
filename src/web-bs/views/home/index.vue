@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper blog-back-wrapper">
-    <v-mdWrite></v-mdWrite>
+    <v-baoTaInfo></v-baoTaInfo>
   </div>
 </template>
 
@@ -8,14 +8,16 @@
 import { defineComponent, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 
-import mdWrite from '../mdWrite/index.vue';
+// import mdWrite from '../mdWrite/index.vue';
+import baoTaInfo from '../baoTaInfo/index.vue';
 import useUserStore from '../../../store/user';
 import showText from './components/showLog';
 
 export default defineComponent({
   name: 'BlogBackHome',
   components: {
-    'v-mdWrite': mdWrite
+    // 'v-mdWrite': mdWrite,
+    'v-baoTaInfo': baoTaInfo
   },
   setup() {
     const userStore = useUserStore();

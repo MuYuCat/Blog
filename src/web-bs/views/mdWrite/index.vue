@@ -91,6 +91,10 @@ export default defineComponent({
       height: calc(100vh - 50px) !important; // 改变编辑器默认高度，不需要的可以不配置
       text-align: start;
     }
+    .bytemd {
+      height: calc(100vh - 50px) !important; // 改变编辑器默认高度，不需要的可以不配置
+      text-align: start;
+    }
   }
 }
 </style>

@@ -7,9 +7,9 @@
  */
 
 import request from './request';
-import host from '../utils/host';
+import host from '../web-fs/utils/host';
 
-// 达人账号管理
+// 账号管理
 const login = (data: any) => {
   console.log('host', host);
   return request({
@@ -20,4 +20,13 @@ const login = (data: any) => {
   });
 };
 
-export default login;
+// 达人账号管理
+const getInfo = () => {
+  console.log('host', host);
+  return request({
+    url: `${host}/users/getUserInfo`,
+    method: 'get'
+  });
+};
+
+export { login, getInfo };

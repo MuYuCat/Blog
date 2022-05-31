@@ -6,6 +6,8 @@
  * @Description: file content
  */
 import axios from 'axios';
+import { USER_TOKEN, POETRY_TOKEN } from '../content';
+// import Cookies from 'js-cookie';
 // 创建axios实例
 // 创建请求时可以用的配置选项
 
@@ -33,19 +35,20 @@ instance.interceptors.request.use(
     if (
       !(config.url as string).includes('users/login') ||
       !(config.url as string).includes('/weather') ||
+      !(config.url as string).includes('/baotaInfo') ||
       !(config.url as string).includes('/poetry')
     ) {
       if (!config?.headers) {
         throw new Error(`Expected 'config' and 'config.headers' not to be undefined`);
       }
-      config.headers.Authorization = `${localStorage.getItem('isToken')}` || ''; // Bearer
+      config.headers.Authorization = `${localStorage.getItem(USER_TOKEN)}` || ''; // Bearer
     }
     // 诗歌api在头部增添token
     if ((config.url as string).includes('/sentence')) {
       if (!config?.headers) {
         throw new Error(`Expected 'config' and 'config.headers' not to be undefined`);
       }
-      config.headers.Authorization = `X-User-Token=${localStorage.getItem('isPoetryToken')}` || ''; // Bearer
+      config.headers.Authorization = `X-User-Token=${localStorage.getItem(POETRY_TOKEN)}` || ''; // Bearer
     }
     return config;
   },

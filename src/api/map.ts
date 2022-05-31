@@ -1,5 +1,5 @@
 import request from './request';
-import useLocationStore from '../../store/map';
+import useLocationStore from '../store/map';
 
 const useMapStore = useLocationStore();
 

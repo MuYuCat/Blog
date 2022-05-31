@@ -15,7 +15,6 @@ import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
@@ -60,6 +59,11 @@ export default defineConfig({
         target: 'https://v1.hitokoto.cn/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/hitokoto/, '')
+      },
+      '/baotaInfo': {
+        target: 'http://muyucat.com:8888/',
+        changeOrigin: false,
+        rewrite: (path) => path.replace(/^\/baotaInfo/, '')
       }
     },
     port: 8080, // 设置服务启动端口号

@@ -6,7 +6,7 @@
  * @Description: file content
  */
 import request from './request';
-import host from '../utils/host';
+import host from '../web-fs/utils/host';
 
 // 达人账号管理
 export const findAll = () => {

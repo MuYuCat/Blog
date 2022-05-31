@@ -25,6 +25,7 @@
     "@bytemd/plugin-mermaid": "^1.15.0",
     "@bytemd/vue-next": "^1.15.0",
     "axios": "^0.26.1",
+    "baota": "^0.2.1",
     "bytemd": "^1.15.0",
     "element-plus": "^2.1.10",
     "js-cookie": "^3.0.1",

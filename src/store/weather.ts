@@ -41,7 +41,7 @@ const useWeatherStore = defineStore({
     getThisCityInfo(info: any) {
       this.districtLink = info;
     },
-    getdevWeatherData(info: any) {
+    getDevWeatherData(info: any) {
       this.devWeather = info;
     },
     getNowFxLink(info: any) {

@@ -1,5 +1,5 @@
 import useMapStore from '../../store/map';
-import getLocation from '../api/map';
+import getLocation from '../../api/map';
 
 const mapStore = useMapStore();
 

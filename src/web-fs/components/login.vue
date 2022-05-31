@@ -86,7 +86,8 @@ import { ElMessage } from 'element-plus';
 import { Avatar, Lock } from '@element-plus/icons-vue';
 import useUserStore from '../../store/user';
 
-import login from '../api/login';
+import { login } from '../../api/user';
+import { USER_TOKEN } from '../../content';
 
 interface ILoginForm {
   username: string;
@@ -149,7 +150,7 @@ export default defineComponent({
             // 接口登陆校验逻辑
             const res = await login(this.loginForm);
             // 存储token
-            localStorage.setItem('isToken', res?.data?.token);
+            localStorage.setItem(USER_TOKEN, res?.data?.token);
             // 更改登录按钮状态
             userStore.updateIsLogIn(true);
             // 存储token校验
