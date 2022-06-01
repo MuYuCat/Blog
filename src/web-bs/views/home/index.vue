@@ -1,24 +1,17 @@
 <template>
-  <div class="wrapper blog-back-wrapper">
-    <v-baoTaInfo></v-baoTaInfo>
-  </div>
+  <div class="blog-back-wrapper">Back Blog</div>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 
-// import mdWrite from '../mdWrite/index.vue';
-import baoTaInfo from '../baoTaInfo/index.vue';
+// import markDown from '../markDown/index.vue';
 import useUserStore from '../../../store/user';
 import showText from './components/showLog';
 
 export default defineComponent({
   name: 'BlogBackHome',
-  components: {
-    // 'v-mdWrite': mdWrite,
-    'v-baoTaInfo': baoTaInfo
-  },
   setup() {
     const userStore = useUserStore();
     const { isLogIn } = storeToRefs(userStore);
@@ -35,7 +28,10 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.blog-back-wrapper {
-  overflow-y: auto;
+.back-home {
+  height: 100%;
+  .blog-back-wrapper {
+    overflow-y: auto;
+  }
 }
 </style>

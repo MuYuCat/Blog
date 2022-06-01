@@ -41,6 +41,8 @@ export default defineComponent({
   z-index: 2;
   font-family: 'Lato', sans-serif;
   font-size: 16px;
+  position: fixed;
+  bottom: 0px;
   .ICP-content {
     padding-top: 18px;
     display: flex;

@@ -1,8 +1,6 @@
 <template>
-  <div class="wrapper blog-wrapper">
-    <v-header></v-header>
+  <div class="blog-wrapper">
     <v-content></v-content>
-    <v-footer></v-footer>
   </div>
 </template>
 
@@ -11,8 +9,6 @@ import { defineComponent, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import showText from './components/showLog';
-import header from '@/web-fs/components/header.vue';
-import footer from '@/web-fs/components/footer.vue';
 import content from '@/web-fs/views/content/index.vue';
 import useUserStore from '../../../store/user';
 
@@ -21,10 +17,7 @@ import { getInfo } from '../../../api/user';
 export default defineComponent({
   name: 'BlogHome',
   components: {
-    'v-header': header,
-    // 'v-banner': banner,
-    'v-content': content,
-    'v-footer': footer
+    'v-content': content
   },
   setup() {
     const userStore = useUserStore();

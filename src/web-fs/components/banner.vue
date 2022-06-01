@@ -1,10 +1,3 @@
-<!--
- * @Author: MuYuCat
- * @Date: 2022-04-14 16:32:47
- * @LastEditors: MuYuCat
- * @LastEditTime: 2022-04-24 14:02:13
- * @Description: file content
--->
 <template>
   <div class="banner">
     <a class="img-bannerBig banner-show"></a>

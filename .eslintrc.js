@@ -1,10 +1,3 @@
-/*
- * @Author: MuYuCat
- * @Date: 2022-04-19 11:58:49
- * @LastEditors: MuYuCat
- * @LastEditTime: 2022-04-24 11:05:35
- * @Description: file content
- */
 module.exports = {
   env: {
     browser: true,
@@ -17,6 +10,7 @@ module.exports = {
     'airbnb-base',
     'plugin:prettier/recommended' // 添加 prettier 插件
   ],
+  parser: 'vue-eslint-parser',
   parserOptions: {
     ecmaVersion: 'latest',
     parser: '@typescript-eslint/parser',

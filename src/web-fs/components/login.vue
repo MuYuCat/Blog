@@ -1,10 +1,3 @@
-<!--
- * @Author: MuYuCat
- * @Date: 2022-04-14 16:32:47
- * @LastEditors: MuYuCat
- * @LastEditTime: 2022-04-24 16:00:48
- * @Description: LogIn弹框
--->
 <template>
   <el-dialog
     :model-value="showLogIn"

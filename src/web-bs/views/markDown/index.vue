@@ -1,13 +1,16 @@
 <template>
   <div class="md-write">
+    <div class="md-write-flex">
+      <el-input v-model="name" placeholder="请输入文章标题..." class="md-write-name" />
+      <el-button plain size="large" class="md-write-btn" @click="publicPaper">发布</el-button>
+    </div>
     <md-editor
       class="editos"
       :value="value"
       :plugins="plugins"
       :locale="zhHans"
-      @change="handleChange"
-      :uploadImages="uploadImage"
-      placeholder="请输入文字"
+      @change="writePaper"
+      placeholder="请开始天马行空吧～"
     />
   </div>
 </template>
@@ -18,7 +21,6 @@ import { Editor } from '@bytemd/vue-next';
 // import { Viewer } from '@bytemd/vue-next';
 import 'bytemd/dist/index.css'; // bytemd 基础样式
 import 'highlight.js/styles/vs.css';
-
 import 'juejin-markdown-themes/dist/juejin.min.css'; // md theme
 // import 'juejin-markdown-themes/dist/github.min.css';
 // @ts-ignore
@@ -40,8 +42,10 @@ import gemoji from '@bytemd/plugin-gemoji'; // emoji😊 代码
 import mediumZoom from '@bytemd/plugin-medium-zoom';
 import mermaid from '@bytemd/plugin-mermaid'; // 图表 / 流程图
 
+import { articleAdd } from '../../../api/article';
+
 export default defineComponent({
-  name: 'MdWrite',
+  name: 'markDown',
   components: {
     // @ts-ignore
     'md-editor': Editor
@@ -60,19 +64,21 @@ export default defineComponent({
         math({ locale: mathZhHans }),
         mermaid({ locale: mermaidZhHans })
       ],
+      name: '',
       value: '',
-      handleChange(v: any) {
-        console.warn(v);
+      writePaper(v: any) {
         data.value = v;
       },
-      async uploadImage(files: any) {
-        console.log('files', files);
-        return [
-          {
-            title: files.map((i: any) => i.name),
-            url: 'http'
-          }
-        ];
+      async publicPaper() {
+        const params = {
+          title: data.name,
+          content: data.value,
+          tags: ''
+        };
+        const resArticleAdd = await articleAdd(params);
+        if (resArticleAdd && (resArticleAdd as any).code === 200) {
+          console.log('resArticleAdd', resArticleAdd);
+        }
       }
     });
     return {
@@ -85,15 +91,50 @@ export default defineComponent({
 
 <style lang="scss">
 .md-write {
-  margin-top: 50px;
+  margin-top: 0px;
   .editos {
-    .bytemd-split {
-      height: calc(100vh - 50px) !important; // 改变编辑器默认高度，不需要的可以不配置
+    .bytemd {
+      height: calc(100vh - 88px) !important; // 改变编辑器默认高度，不需要的可以不配置
       text-align: start;
     }
-    .bytemd {
-      height: calc(100vh - 50px) !important; // 改变编辑器默认高度，不需要的可以不配置
-      text-align: start;
+  }
+  .el-input__wrapper {
+    outline: none;
+    border: none;
+    box-shadow: none !important;
+  }
+  .el-form-item {
+    margin-bottom: 0px;
+  }
+  input::placeholder {
+    font-size: 26px;
+    font-weight: 500;
+    color: #606266;
+  }
+}
+</style>
+<style scoped lang="scss">
+.md-write {
+  .md-write-flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2%;
+    .md-write-name {
+      width: 50%;
+      height: 80px;
+      line-height: 80px;
+      font-size: 24px;
+      font-weight: 500;
+      color: #1d2129;
+      border: none;
+      outline: none;
+    }
+    .md-write-btn {
+      width: 100px;
+      height: 44px;
     }
   }
 }

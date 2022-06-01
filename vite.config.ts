@@ -60,11 +60,16 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/hitokoto/, '')
       },
-      '/baotaInfo': {
-        target: 'http://muyucat.com:8888/',
+      '/blog': {
+        target: 'http://127.0.0.1:7001/',
         changeOrigin: false,
-        rewrite: (path) => path.replace(/^\/baotaInfo/, '')
+        rewrite: (path) => path.replace(/^\/blog/, '')
       }
+      // '/baotaInfo': {
+      //   target: 'http://muyucat.com:8888/',
+      //   changeOrigin: false,
+      //   rewrite: (path) => path.replace(/^\/baotaInfo/, '')
+      // }
     },
     port: 8080, // 设置服务启动端口号
     open: true, // 设置服务启动时是否自动打开浏览器

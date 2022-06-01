@@ -7,7 +7,7 @@
       </span>
       <span class="header-right">
         <el-button plain size="large" @click="openLogin" v-if="!isLogIn">登陆</el-button>
-        <v-avatar v-else></v-avatar>
+        <v-avatar v-else @click="goToBackBlog" class="header-avatar"></v-avatar>
       </span>
     </div>
     <v-login v-model:showLogIn="showLogIn"></v-login>
@@ -18,6 +18,7 @@
 import { defineComponent, reactive, toRefs } from 'vue';
 import { storeToRefs } from 'pinia';
 
+import { useRouter } from 'vue-router';
 import useUserStore from '../../store/user';
 import login from '@/web-fs/components/login.vue';
 import avatar from '@/web-fs/components/avatar.vue';
@@ -25,6 +26,7 @@ import avatar from '@/web-fs/components/avatar.vue';
 interface IDataProps {
   showLogIn: boolean;
   openLogin: () => void;
+  goToBackBlog: () => void;
 }
 
 export default defineComponent({
@@ -36,11 +38,17 @@ export default defineComponent({
   setup() {
     const userStore = useUserStore();
     const { isLogIn } = storeToRefs(userStore);
+    const router = useRouter();
 
     const data: IDataProps = reactive({
       showLogIn: false,
       openLogin() {
         data.showLogIn = true;
+      },
+      goToBackBlog() {
+        router.push({
+          path: '/backBlog'
+        });
       }
     });
     return {
@@ -81,6 +89,11 @@ export default defineComponent({
         left: 54px;
         font-weight: 700;
         letter-spacing: 2px;
+      }
+    }
+    .header-right {
+      .header-avatar {
+        cursor: pointer;
       }
     }
   }

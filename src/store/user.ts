@@ -1,11 +1,3 @@
-/*
- * @Author: MuYuCat
- * @Date: 2022-04-24 14:20:36
- * @LastEditors: MuYuCat
- * @LastEditTime: 2022-04-24 16:17:06
- * @Description: file content
- */
-
 import { defineStore } from 'pinia';
 
 const useUserStore = defineStore({

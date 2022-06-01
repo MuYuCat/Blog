@@ -40,6 +40,36 @@ a {
 }
 
 .container {
-  margin-top: 80px;
-  padding: 0 10%;
+  position: absolute;
+  left: 200px;
+  right: 0;
+  bottom: 0;
+  top: 0px;
+  overflow-y: auto;
+  &.no-sidebar{
+    top: 56px;
+    left:0;
+  }
+  .content-wrap {
+    width: auto;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding:24px;
+    overflow: auto;
+    .content-header{
+      margin-bottom:20px;
+    }
+    .content-box{
+      box-sizing: border-box;
+      overflow-y: auto;
+      background: #FFFFFF;
+      box-shadow: 0 6px 11px -2px rgba(169,178,203,0.30);
+      border-radius: 12px;
+      flex: 1;
+      padding:30px;
+    }
+  }
 }
