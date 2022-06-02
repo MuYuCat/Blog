@@ -1,5 +1,8 @@
 <template>
-  <div class="blog-back-wrapper">Back Blog</div>
+  <div class="blog-back-wrapper back-blog">
+    <span class="back-blog-title">Back Blog</span>
+    <a class="img-data-manage"></a>
+  </div>
 </template>
 
 <script lang="ts">
@@ -28,10 +31,21 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.back-home {
+.back-blog {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
   height: 100%;
-  .blog-back-wrapper {
-    overflow-y: auto;
+  .back-blog-title {
+    font-size: 60px;
+  }
+  .img-data-manage {
+    width: 50%;
+    height: 50%;
   }
 }
 </style>

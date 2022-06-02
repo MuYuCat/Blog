@@ -8,12 +8,24 @@ declare module '@vue/runtime-core' {
     ElAvatar: typeof import('element-plus/es')['ElAvatar'];
     ElButton: typeof import('element-plus/es')['ElButton'];
     ElCard: typeof import('element-plus/es')['ElCard'];
+    ElDatePicker: typeof import('element-plus/es')['ElDatePicker'];
     ElDialog: typeof import('element-plus/es')['ElDialog'];
     ElForm: typeof import('element-plus/es')['ElForm'];
     ElFormItem: typeof import('element-plus/es')['ElFormItem'];
     ElIcon: typeof import('element-plus/es')['ElIcon'];
+    ElImage: typeof import('element-plus/es')['ElImage'];
     ElInput: typeof import('element-plus/es')['ElInput'];
+    ElMenu: typeof import('element-plus/es')['ElMenu'];
+    ElMenuItem: typeof import('element-plus/es')['ElMenuItem'];
+    ElMenuItemGroup: typeof import('element-plus/es')['ElMenuItemGroup'];
+    ElOption: typeof import('element-plus/es')['ElOption'];
     ElPopover: typeof import('element-plus/es')['ElPopover'];
+    ElSelect: typeof import('element-plus/es')['ElSelect'];
+    ElSubmenu: typeof import('element-plus/es')['ElSubmenu'];
+    ElSubMenu: typeof import('element-plus/es')['ElSubMenu'];
+    ElSwitch: typeof import('element-plus/es')['ElSwitch'];
+    ElTable: typeof import('element-plus/es')['ElTable'];
+    ElTableColumn: typeof import('element-plus/es')['ElTableColumn'];
     RouterLink: typeof import('vue-router')['RouterLink'];
     RouterView: typeof import('vue-router')['RouterView'];
   }

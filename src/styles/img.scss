@@ -18,3 +18,7 @@
 .img-element{
   @include img('element.png', 100%, 100%, cover, no-repeat);
 }
+
+.img-data-manage{
+  @include img('data-manage.png', 100%, 100%, cover, no-repeat);
+}
