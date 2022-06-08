@@ -77,9 +77,9 @@ import 'element-plus/es/components/message/style/css';
 
 import { ElMessage } from 'element-plus';
 import { Avatar, Lock } from '@element-plus/icons-vue';
-import useUserStore from '../../store/user';
+import useUserStore from '@/store/user';
 
-import { login } from '../../api/user';
+import { login } from '@/api/user';
 import { USER_TOKEN } from '../../content';
 
 interface ILoginForm {

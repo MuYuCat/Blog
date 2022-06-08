@@ -1,6 +1,6 @@
 // web-fs
 const Home = () => import('@/web-fs/views/home/index.vue');
-const ClickPage = () => import('@/web-fs/views/home/components/clickPage.vue');
+const ClickPage = () => import('@/components/clickPage.vue');
 
 const routes = [
   {
@@ -10,6 +10,8 @@ const routes = [
     meta: {
       title: '',
       isShowSidebar: false,
+      isShowHead: true,
+      isShowFoot: true,
       requiresAuth: false
     }
   },
@@ -20,6 +22,8 @@ const routes = [
     meta: {
       title: '',
       isShowSidebar: false,
+      isShowHead: true,
+      isShowFoot: true,
       requiresAuth: false
     }
   },
@@ -30,6 +34,8 @@ const routes = [
     meta: {
       title: '',
       isShowSidebar: false,
+      isShowHead: true,
+      isShowFoot: false,
       requiresAuth: false
     }
   }

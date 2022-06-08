@@ -11,6 +11,8 @@ const routes = [
     meta: {
       title: '',
       isShowSidebar: true,
+      isShowHead: true,
+      isShowFoot: false,
       requiresAuth: true
     }
   },
@@ -21,6 +23,8 @@ const routes = [
     meta: {
       title: '',
       isShowSidebar: true,
+      isShowHead: true,
+      isShowFoot: false,
       requiresAuth: true
     }
   },
@@ -31,6 +35,8 @@ const routes = [
     meta: {
       title: '',
       isShowSidebar: true,
+      isShowHead: true,
+      isShowFoot: false,
       requiresAuth: true
     }
   }

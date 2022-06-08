@@ -21,9 +21,39 @@
     @include icons('muyucat-gary.png', 48px, 48px);
   }
 }
+
 .icons-user {
   @include icons('user.png', 24px, 24px);
 }
+
 .icons-password {
   @include icons('password.png', 24px, 24px);
+}
+
+.icons-head-user {
+  @include icons('head-user.png', 24px, 24px);
+}
+
+.icons-head-bells {
+  @include icons('head-bells.png', 24px, 24px);
+}
+
+.icons-head-login-out {
+  @include icons('head-login-out.png', 24px, 24px);
+}
+
+.icons-sidebar-backBlog {
+  @include icons('sidebar-report.png', 16px, 16px);
+}
+
+.icons-sidebar-contentMgt {
+  @include icons('sidebar-article.png', 16px, 16px);
+}
+
+.icons-sidebar-userMgt {
+  @include icons('head-user.png', 16px, 16px);
+}
+
+.icons-sidebar-setUp {
+  @include icons('sidebar-setting.png', 16px, 16px);
 }

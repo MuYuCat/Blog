@@ -5,12 +5,15 @@ const useUserStore = defineStore({
   state: () => {
     return {
       isLogIn: false, // 是否为登陆状态
-      name: '' // 用户名
+      userName: '' // 用户名
     };
   },
   actions: {
     updateIsLogIn(value: boolean) {
       this.isLogIn = value;
+    },
+    updateUserName(value: string) {
+      this.userName = value;
     }
   },
   // 开启数据缓存

@@ -2,8 +2,8 @@
 import md5 from 'js-md5';
 import Cookies from 'js-cookie';
 // import * as BaoTa from 'baota';
-import getSystem from '../../api/baota';
-import useBaoTaStore from '../../store/baota';
+import getSystem from '@/api/baota';
+import useBaoTaStore from '@/store/baota';
 
 const baoTaStore = useBaoTaStore();
 // const BaoTa = require('baota');

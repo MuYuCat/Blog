@@ -8,12 +8,11 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 // 如果编辑器提示 path 模块找不到，则可以安装一下 @types/node -> npm i @types/node -D
-// import * as path from 'path';
-import { resolve } from 'path';
 // 按需使用Element-Plus
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+import * as pathBegin from 'path';
 
 export default defineConfig({
   plugins: [
@@ -28,7 +27,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src') // 设置 `@` 指向 `src` 目录
+      '@': pathBegin.resolve(__dirname, 'src') // 设置 `@` 指向 `src` 目录
     }
   },
   publicDir: 'public',

@@ -17,6 +17,8 @@ body,
   width: 100%;
   height: 100%;
   overflow: hidden;
+  overflow-y: auto;
+  background-color: #F7F8FA;
 }
 
 #app {
@@ -40,15 +42,10 @@ a {
 }
 
 .container {
-  position: absolute;
-  left: 200px;
-  right: 0;
-  bottom: 0;
-  top: 0px;
-  overflow-y: auto;
+  margin-left: 216px;
+  margin-top: 76px;
   &.no-sidebar{
-    top: 56px;
-    left:0;
+    margin-left: 0px
   }
   .content-wrap {
     width: auto;

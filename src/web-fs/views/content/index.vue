@@ -101,10 +101,11 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, reactive, toRefs, onMounted } from 'vue';
+<script lang="ts" setup>
+import { reactive } from 'vue';
 import { storeToRefs } from 'pinia';
-import useUserStore from '../../../store/user';
+import { ElCard } from 'element-plus';
+import useUserStore from '@/store/user';
 
 interface IUserInfo {
   username: string;
@@ -117,30 +118,18 @@ interface IDataProps {
   userInfo: IUserInfo;
   // turnLeft: () => void;
 }
+const userStore = useUserStore();
+const { isLogIn } = storeToRefs(userStore);
 
-export default defineComponent({
-  name: 'BlogHome',
-  setup() {
-    const userStore = useUserStore();
-    const { isLogIn } = storeToRefs(userStore);
-
-    const data: IDataProps = reactive({
-      resultString: '',
-      poetry: '',
-      userInfo: {
-        username: '',
-        id: ''
-      }
-    });
-    onMounted(async () => {
-      userStore.updateIsLogIn(false);
-    });
-    return {
-      isLogIn,
-      ...toRefs(data)
-    };
+const data: IDataProps = reactive({
+  resultString: '',
+  poetry: '',
+  userInfo: {
+    username: '',
+    id: ''
   }
 });
+console.log(data, isLogIn);
 </script>
 
 <style scoped lang="scss">
@@ -150,8 +139,8 @@ export default defineComponent({
   max-width: 1450px;
   font-family: Georgia, STXihei, '华文细黑', SimSun, '宋体';
   .card-content {
-    margin: 70px 0;
-    padding-bottom: 45px;
+    // margin: 70px 0;
+    // padding-bottom: 45px;
     .card-item {
       width: 100%;
       border: 0px;

@@ -8,11 +8,11 @@
 import { defineComponent, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 
-import showText from './components/showLog';
+import showText from '@/components/showLog';
 import content from '@/web-fs/views/content/index.vue';
-import useUserStore from '../../../store/user';
+import useUserStore from '@/store/user';
 
-import { getInfo } from '../../../api/user';
+import { getInfo } from '@/api/user';
 
 export default defineComponent({
   name: 'BlogHome',
@@ -27,6 +27,9 @@ export default defineComponent({
       await getInfo().then((resUserInfo: any) => {
         if (resUserInfo && resUserInfo.code === 200) {
           userStore.updateIsLogIn(true);
+          userStore.updateUserName(resUserInfo?.data?.userInfo?.username);
+        } else {
+          userStore.updateIsLogIn(false);
         }
       });
     };
@@ -45,6 +48,6 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .blog-wrapper {
-  overflow-y: auto;
+  // overflow-y: auto;
 }
 </style>

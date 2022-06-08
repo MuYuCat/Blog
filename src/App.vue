@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <v-head v-if="!sidebarShow"></v-head>
+    <v-head v-if="headShow"></v-head>
     <v-sidebar v-if="sidebarShow"></v-sidebar>
     <div class="container" :class="{ 'no-sidebar': !sidebarShow }">
       <router-view :key="$route.fullPath" v-slot="{ Component }">
@@ -9,7 +9,7 @@
         </transition>
       </router-view>
     </div>
-    <v-foot v-if="!sidebarShow"></v-foot>
+    <v-foot v-if="footShow"></v-foot>
   </div>
 </template>
 
@@ -17,9 +17,9 @@
 import { storeToRefs } from 'pinia';
 import { defineComponent } from 'vue';
 import usePermissionStore from './store/permission';
-import header from '@/web-fs/components/header.vue';
-import footer from '@/web-fs/components/footer.vue';
-import sidebar from '@/web-bs/components/sidebar.vue';
+import header from '@/components/header.vue';
+import footer from '@/components/footer.vue';
+import sidebar from '@/components/sidebar.vue';
 
 export default defineComponent({
   name: 'App',
@@ -30,10 +30,11 @@ export default defineComponent({
   },
   setup() {
     const permissionStore = usePermissionStore();
-    const { sidebarShow } = storeToRefs(permissionStore);
-
+    const { sidebarShow, headShow, footShow } = storeToRefs(permissionStore);
     return {
-      sidebarShow
+      sidebarShow,
+      headShow,
+      footShow
     };
   }
 });

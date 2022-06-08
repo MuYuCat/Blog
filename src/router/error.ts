@@ -10,6 +10,8 @@ export default [
     meta: {
       title: '404',
       isShowSidebar: false,
+      isShowHead: true,
+      isShowFoot: true,
       requiresAuth: false
     }
   }

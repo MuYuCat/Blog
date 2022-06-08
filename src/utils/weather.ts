@@ -1,5 +1,5 @@
-import useWeatherStore from '../../store/weather';
-import useMapStore from '../../store/map';
+import useWeatherStore from '@/store/weather';
+import useMapStore from '@/store/map';
 import {
   getWeatherCityInfo,
   getNowWeather,
@@ -11,7 +11,7 @@ import {
   getAir,
   getAstronomySun,
   getAstronomyMoon
-} from '../../api/weather';
+} from '../api/weather';
 
 const weatherStore = useWeatherStore();
 const mapStore = useMapStore();

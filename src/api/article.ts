@@ -10,11 +10,12 @@ const articleAdd = (data: any) => {
 };
 
 // 查找文章
-const articleFindAll = () => {
+const findArticle = (params: any) => {
   return request({
-    url: '/blog/article/findAll',
-    method: 'get'
+    url: '/blog/article/findArticle',
+    method: 'get',
+    params
   });
 };
 
-export { articleAdd, articleFindAll };
+export { articleAdd, findArticle };

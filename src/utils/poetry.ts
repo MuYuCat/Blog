@@ -1,6 +1,6 @@
-import { getPoetryToken, getPoetrySentence, getHitokoto } from '../../api/poetry';
-import usePoetryStore from '../../store/poetry';
-import { POETRY_TOKEN } from '../../content';
+import { getPoetryToken, getPoetrySentence, getHitokoto } from '../api/poetry';
+import usePoetryStore from '@/store/poetry';
+import { POETRY_TOKEN } from '../content';
 
 const poetryStore = usePoetryStore();
 

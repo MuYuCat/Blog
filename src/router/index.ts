@@ -13,6 +13,8 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: '',
       isShowSidebar: false,
+      isShowHead: true,
+      isShowFoot: false,
       requiresAuth: false
     }
   }

@@ -10,8 +10,8 @@ import { defineComponent, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 
 // import markDown from '../markDown/index.vue';
-import useUserStore from '../../../store/user';
-import showText from './components/showLog';
+import useUserStore from '@/store/user';
+import showText from '@/components/showLog';
 
 export default defineComponent({
   name: 'BlogBackHome',
@@ -20,7 +20,6 @@ export default defineComponent({
     const { isLogIn } = storeToRefs(userStore);
 
     onMounted(async () => {
-      userStore.updateIsLogIn(false);
       showText();
     });
     return {
@@ -44,8 +43,8 @@ export default defineComponent({
     font-size: 60px;
   }
   .img-data-manage {
-    width: 50%;
-    height: 50%;
+    width: 500px;
+    height: 500px;
   }
 }
 </style>

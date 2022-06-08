@@ -1,22 +1,25 @@
 <template>
   <div class="md-write">
-    <div class="md-write-flex">
-      <el-input v-model="name" placeholder="请输入文章标题..." class="md-write-name" />
-      <el-button plain size="large" class="md-write-btn" @click="publicPaper">发布</el-button>
-    </div>
-    <md-editor
-      class="editos"
-      :value="value"
-      :plugins="plugins"
-      :locale="zhHans"
-      @change="writePaper"
-      placeholder="请开始天马行空吧～"
-    />
+    <el-crumb :title="data.title" :routes="data.routes"></el-crumb>
+    <el-card shadow="always" class="md-write-card">
+      <div class="md-write-flex">
+        <el-input v-model="data.name" placeholder="请输入文章标题..." class="md-write-name" />
+        <el-button plain size="large" class="md-write-btn" @click="publicPaper">发布</el-button>
+      </div>
+      <Editor
+        class="editos"
+        :value="data.value"
+        :plugins="data.plugins"
+        :locale="zhHans"
+        @change="writePaper"
+        placeholder="请开始天马行空吧～"
+      />
+    </el-card>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue';
+<script lang="ts" setup>
+import { reactive } from 'vue';
 import { Editor } from '@bytemd/vue-next';
 // import { Viewer } from '@bytemd/vue-next';
 import 'bytemd/dist/index.css'; // bytemd 基础样式
@@ -42,51 +45,51 @@ import gemoji from '@bytemd/plugin-gemoji'; // emoji😊 代码
 import mediumZoom from '@bytemd/plugin-medium-zoom';
 import mermaid from '@bytemd/plugin-mermaid'; // 图表 / 流程图
 
-import { articleAdd } from '../../../api/article';
+import { ElInput, ElButton } from 'element-plus';
+import { storeToRefs } from 'pinia';
+import { articleAdd } from '@/api/article';
+import useUserStore from '@/store/user';
+import ElCrumb from '@/web-bs/components/crumb.vue';
 
-export default defineComponent({
-  name: 'markDown',
-  components: {
-    // @ts-ignore
-    'md-editor': Editor
-  },
-  setup() {
-    const data = reactive({
-      plugins: [
-        // 将所有的扩展功能放入插件数组中，然后就可以生效了
-        highlight(),
-        breaks(),
-        frontmatter(),
-        footnotes(),
-        gemoji(),
-        mediumZoom(),
-        gfm({ locale: gfmZhHans }),
-        math({ locale: mathZhHans }),
-        mermaid({ locale: mermaidZhHans })
-      ],
-      name: '',
-      value: '',
-      writePaper(v: any) {
-        data.value = v;
-      },
-      async publicPaper() {
-        const params = {
-          title: data.name,
-          content: data.value,
-          tags: ''
-        };
-        const resArticleAdd = await articleAdd(params);
-        if (resArticleAdd && (resArticleAdd as any).code === 200) {
-          console.log('resArticleAdd', resArticleAdd);
-        }
-      }
-    });
-    return {
-      ...toRefs(data),
-      zhHans
-    };
-  }
+const userStore = useUserStore();
+const { userName } = storeToRefs(userStore);
+
+const data = reactive({
+  plugins: [
+    // 将所有的扩展功能放入插件数组中，然后就可以生效了
+    highlight(),
+    breaks(),
+    frontmatter(),
+    footnotes(),
+    gemoji(),
+    mediumZoom(),
+    gfm({ locale: gfmZhHans }),
+    math({ locale: mathZhHans }),
+    mermaid({ locale: mermaidZhHans })
+  ],
+  name: '',
+  value: '',
+  routes: [
+    { path: '/backBlog', breadcrumbName: '工作台' },
+    { path: '/backBlog/articleMgt', breadcrumbName: '内容管理' }
+  ],
+  title: '撰写文章'
 });
+async function writePaper(v: any) {
+  data.value = v;
+}
+async function publicPaper() {
+  const params = {
+    title: data.name,
+    author: userName.value,
+    content: data.value,
+    tags: ''
+  };
+  const resArticleAdd = await articleAdd(params);
+  if (resArticleAdd && (resArticleAdd as any).code === 200) {
+    console.log('resArticleAdd', resArticleAdd);
+  }
+}
 </script>
 
 <style lang="scss">
@@ -94,7 +97,7 @@ export default defineComponent({
   margin-top: 0px;
   .editos {
     .bytemd {
-      height: calc(100vh - 88px) !important; // 改变编辑器默认高度，不需要的可以不配置
+      height: calc(100vh - 353px) !important; // 改变编辑器默认高度，不需要的可以不配置
       text-align: start;
     }
   }
@@ -115,26 +118,31 @@ export default defineComponent({
 </style>
 <style scoped lang="scss">
 .md-write {
-  .md-write-flex {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 2%;
-    .md-write-name {
-      width: 50%;
-      height: 80px;
-      line-height: 80px;
-      font-size: 24px;
-      font-weight: 500;
-      color: #1d2129;
-      border: none;
-      outline: none;
-    }
-    .md-write-btn {
-      width: 100px;
-      height: 44px;
+  width: 100%;
+  padding: 0px 2% 20px 2%;
+  .md-write-card {
+    margin-bottom: 16px;
+    border-radius: 10px;
+    .md-write-flex {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+      .md-write-name {
+        width: 50%;
+        height: 60px;
+        line-height: 60px;
+        font-size: 24px;
+        font-weight: 500;
+        color: #1d2129;
+        border: none;
+        outline: none;
+      }
+      .md-write-btn {
+        width: 100px;
+        height: 44px;
+      }
     }
   }
 }

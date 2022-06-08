@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
-      "@": ["src/*"],
-      "store/*": ["src/1store/*"]
+      "@/*": ["src/*"],
+      "store/*": ["src/store/*"]
     },
     "allowJs": true,
     "target": "esnext",
