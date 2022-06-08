@@ -1,7 +1,7 @@
 // web-bs
 const BackHome = () => import('@/web-bs/views/home/index.vue');
 const MarkDown = () => import('@/web-bs/views/markDown/index.vue');
-const articleMgt = () => import('@/web-bs/views/articleMgt/index.vue');
+const ArticleMgt = () => import('@/web-bs/views/articleMgt/index.vue');
 
 const routes = [
   {
@@ -31,7 +31,7 @@ const routes = [
   {
     path: '/backBlog/articleMgt',
     name: 'articleMgt',
-    component: articleMgt,
+    component: ArticleMgt,
     meta: {
       title: '',
       isShowSidebar: true,
