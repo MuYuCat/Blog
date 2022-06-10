@@ -45,14 +45,16 @@ import gemoji from '@bytemd/plugin-gemoji'; // emoji😊 代码
 import mediumZoom from '@bytemd/plugin-medium-zoom';
 import mermaid from '@bytemd/plugin-mermaid'; // 图表 / 流程图
 
-import { ElInput, ElButton } from 'element-plus';
+import { ElInput, ElButton, ElNotification } from 'element-plus';
 import { storeToRefs } from 'pinia';
+import { useRouter } from 'vue-router';
 import { articleAdd } from '@/api/article';
 import useUserStore from '@/store/user';
 import ElCrumb from '@/web-bs/components/crumb.vue';
 
 const userStore = useUserStore();
 const { userName } = storeToRefs(userStore);
+const router = useRouter();
 
 const data = reactive({
   plugins: [
@@ -87,7 +89,14 @@ async function publicPaper() {
   };
   const resArticleAdd = await articleAdd(params);
   if (resArticleAdd && (resArticleAdd as any).code === 200) {
-    console.log('resArticleAdd', resArticleAdd);
+    data.value = '';
+    data.name = '';
+    ElNotification.success({
+      title: '文章管理',
+      message: '发布成功',
+      duration: 4500
+    });
+    router.push('/backBlog/articleMgt');
   }
 }
 </script>

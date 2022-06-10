@@ -1,0 +1,9 @@
+.el-table__header-wrapper tr td.el-table-fixed-column--right {
+  z-index: 1 !important;
+}
+.el-table__body-wrapper tr td.el-table-fixed-column--right {
+  z-index: 1 !important;
+}
+.el-table.is-scrolling-left .el-table-fixed-column--right.is-first-column::before {
+  box-shadow: -5px 0px 10px 0px rgb(0 0 0 / 5%) !important;
+}

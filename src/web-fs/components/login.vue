@@ -75,7 +75,7 @@
 import { defineComponent, reactive, toRefs, markRaw } from 'vue';
 import 'element-plus/es/components/message/style/css';
 
-import { ElMessage } from 'element-plus';
+import { ElMessage, ElNotification } from 'element-plus';
 import { Avatar, Lock } from '@element-plus/icons-vue';
 import useUserStore from '@/store/user';
 
@@ -142,23 +142,33 @@ export default defineComponent({
           try {
             // 接口登陆校验逻辑
             const res = await login(this.loginForm);
-            // 存储token
-            localStorage.setItem(USER_TOKEN, res?.data?.token);
-            // 更改登录按钮状态
-            userStore.updateIsLogIn(true);
-            // 存储token校验
-            if ((res as any).msg) {
-              ElMessage({
-                message: (res as any).msg,
-                type: 'success'
+            if ((res as any)?.code === 200) {
+              // 存储token
+              localStorage.setItem(USER_TOKEN, res?.data?.token);
+              // 更改登录按钮状态
+              userStore.updateIsLogIn(true);
+              // 存储token校验
+              if ((res as any).msg) {
+                ElNotification.success({
+                  title: '权限提醒',
+                  message: '登陆成功',
+                  duration: 4500
+                });
+              }
+              this.closeDialog();
+            } else {
+              ElNotification.warning({
+                title: '权限提醒',
+                message: '登陆失败',
+                duration: 4500
               });
             }
-            this.closeDialog();
           } catch (error: any) {
             if (error.msg) {
-              ElMessage({
+              ElNotification.error({
+                title: '权限提醒',
                 message: error.msg,
-                type: 'error'
+                duration: 4500
               });
             }
           }

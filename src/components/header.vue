@@ -10,7 +10,7 @@
         <div v-else class="header-icons">
           <a class="icons-head-bells" href="/"></a>
           <a class="icons-head-user" href="/"></a>
-          <a class="icons-head-login-out" href="/"></a>
+          <a class="icons-head-login-out" @click="data.loginOut"></a>
         </div>
         <!-- <v-avatar v-else @click="goToBackBlog" class="header-avatar"></v-avatar> -->
       </span>
@@ -24,17 +24,19 @@ import { reactive } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import { useRouter } from 'vue-router';
-import { ElButton } from 'element-plus';
+import { ElButton, ElNotification } from 'element-plus';
 import useUserStore from '@/store/user';
 import VLogin from '@/web-fs/components/login.vue';
 // eslint-disable-next-line no-unused-vars
 import loginOut from '@/assets/icons/login.svg';
+import { USER_TOKEN } from '@/content';
 
 // import avatar from '@/components/avatar.vue';
 
 interface IDataProps {
   showLogIn: boolean;
   openLogin: () => void;
+  loginOut: () => void;
   goToBackBlog: () => void;
 }
 const userStore = useUserStore();
@@ -45,6 +47,15 @@ const data: IDataProps = reactive({
   showLogIn: false,
   openLogin() {
     data.showLogIn = true;
+  },
+  loginOut() {
+    userStore.updateIsLogIn(false);
+    localStorage.removeItem(USER_TOKEN);
+    ElNotification.warning({
+      title: '权限提醒',
+      message: '已退出登录',
+      duration: 4500
+    });
   },
   goToBackBlog() {
     router.push({
