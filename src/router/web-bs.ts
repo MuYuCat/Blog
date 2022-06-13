@@ -9,19 +9,7 @@ const routes = [
     name: 'backBlog',
     component: BackHome,
     meta: {
-      title: '',
-      isShowSidebar: true,
-      isShowHead: true,
-      isShowFoot: false,
-      requiresAuth: true
-    }
-  },
-  {
-    path: '/backBlog/markDown',
-    name: 'markDown',
-    component: MarkDown,
-    meta: {
-      title: '',
+      title: '工作台',
       isShowSidebar: true,
       isShowHead: true,
       isShowFoot: false,
@@ -33,7 +21,32 @@ const routes = [
     name: 'articleMgt',
     component: ArticleMgt,
     meta: {
-      title: '',
+      title: '文章管理',
+      isShowSidebar: true,
+      isShowHead: true,
+      isShowFoot: false,
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/backBlog/markDown',
+    name: 'markDown',
+    component: MarkDown,
+    meta: {
+      title: '发布文章',
+      isShowSidebar: true,
+      isShowHead: true,
+      isShowFoot: false,
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/backBlog/articleEdit',
+    name: 'articleEdit',
+    component: MarkDown,
+    meta: {
+      path: '/backBlog/articleMgt',
+      title: '编辑文章',
       isShowSidebar: true,
       isShowHead: true,
       isShowFoot: false,

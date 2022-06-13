@@ -95,7 +95,7 @@ const data = reactive({
         },
         {
           index: '/backBlog/markDown',
-          title: '撰写文章'
+          title: '发布文章'
         },
         {
           index: '/backBlog/commentMgt',

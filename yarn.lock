@@ -1441,10 +1441,10 @@
   "resolved" "https://registry.npmjs.org/data-uri-to-buffer/-/data-uri-to-buffer-3.0.1.tgz"
   "version" "3.0.1"
 
-"dayjs@^1.11.0":
-  "integrity" "sha512-ER7EjqVAMkRRsxNCC5YqJ9d9VQYuWdGt7aiH2qA5R5wt8ZmWaP2dLUSIK6y/kVzLMlmh1Tvu5xUf4M/wdGJ5KA=="
-  "resolved" "http://snpm.cnsuning.com/dayjs/-/dayjs-1.11.1.tgz"
-  "version" "1.11.1"
+"dayjs@^1.11.0", "dayjs@^1.11.3":
+  "integrity" "sha512-xxwlswWOlGhzgQ4TKzASQkUhqERI3egRNqgV4ScR8wlANA/A9tZ7miXa44vTTKEq5l7vWoL5G57bG3zA+Kow0A=="
+  "resolved" "https://registry.npmmirror.com/dayjs/-/dayjs-1.11.3.tgz"
+  "version" "1.11.3"
 
 "debug@^2.6.9":
   "integrity" "sha1-XRKFFd8TT/Mn6QpMk/Tgd6U2NB8="

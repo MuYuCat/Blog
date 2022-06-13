@@ -27,6 +27,7 @@
     "axios": "^0.26.1",
     "baota": "^0.2.1",
     "bytemd": "^1.15.0",
+    "dayjs": "^1.11.3",
     "element-plus": "^2.1.10",
     "js-cookie": "^3.0.1",
     "juejin-markdown-themes": "^1.29.2",

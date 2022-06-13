@@ -3,7 +3,7 @@ import usePermissionStore from '@/store/permission';
 
 router.beforeEach(async (to) => {
   const permissionStore = usePermissionStore();
-  permissionStore.updatePath(to.path);
+  permissionStore.updatePath((to?.meta?.path as string) || to.path);
   // 处理侧边栏显示隐藏
   if (to.meta.isShowSidebar) {
     permissionStore.updateSidebarShow(true);

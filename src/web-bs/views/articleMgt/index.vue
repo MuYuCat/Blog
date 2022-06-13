@@ -39,8 +39,6 @@
             disabled
             style="width: 200px; height: 40px"
           >
-            <!-- <el-option label="Zone one" value="shanghai" />
-            <el-option label="Zone two" value="beijing" /> -->
           </el-select>
         </el-form-item>
         <el-form-item label="文章标签:" size="large">
@@ -50,8 +48,6 @@
             disabled
             style="width: 200px; height: 40px"
           >
-            <!-- <el-option label="Zone one" value="shanghai" />
-            <el-option label="Zone two" value="beijing" /> -->
           </el-select>
         </el-form-item>
         <el-form-item label="创建日期:" size="large">
@@ -67,7 +63,7 @@
           />
         </el-form-item>
         <el-form-item size="large">
-          <el-button plain type="primary" @click="findTableData" size="large">查询</el-button>
+          <el-button plain type="primary" @click="getTableData" size="large">查询</el-button>
         </el-form-item>
         <el-form-item size="large">
           <el-button plain type="info" @click="reSetForm" size="large">重置</el-button>
@@ -82,21 +78,53 @@
           </template>
         </el-table-column>
         <el-table-column prop="id" label="ID" min-width="180" align="center" />
-        <el-table-column prop="title" label="文章标题" min-width="180" align="center" />
-        <el-table-column prop="author" label="作者" min-width="180" align="center" />
-        <el-table-column prop="tags" label="标签" min-width="180" align="center" />
-        <el-table-column prop="url" label="路由" min-width="180" align="center" />
-        <el-table-column prop="created_at" label="创建时间" min-width="180" align="center" />
-        <el-table-column prop="updated_at" label="更新时间" min-width="180" align="center" />
+        <el-table-column prop="title" label="文章标题" min-width="180" align="center">
+          <template #default="scope">
+            {{ fixStyle(scope.row.title) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="author" label="作者" min-width="180" align="center">
+          <template #default="scope">
+            {{ fixStyle(scope.row.author) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="tags" label="标签" min-width="180" align="center">
+          <template #default="scope">
+            {{ fixStyle(scope.row.tags) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="url" label="参考链接" min-width="180" align="center">
+          <template #default="scope">
+            {{ fixStyle(scope.row.url) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="created_at" label="创建时间" min-width="180" align="center">
+          <template #default="scope">
+            {{ fixStyle(scope.row.created_at, 'time') }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="updated_at" label="更新时间" min-width="180" align="center">
+          <template #default="scope">
+            {{ fixStyle(scope.row.updated_at, 'time') }}
+          </template>
+        </el-table-column>
         <el-table-column prop="status" label="状态" min-width="80" fixed="right" align="center">
           <template #default="scope">
-            <el-switch v-model="openSwitch" v-if="scope.row.status === '1'" />
-            <el-switch v-model="closeSwitch" v-else />
+            <el-switch
+              size="large"
+              v-model.number="scope.row.status"
+              :active-value="1"
+              :inactive-value="0"
+              :before-change="changeArticleStatus.bind(this, scope)"
+            />
           </template>
         </el-table-column>
         <el-table-column label="操作" min-width="180" fixed="right" align="center">
           <template #default="scope">
-            <el-button @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+            <el-button @click="handleEdit(scope.$index, scope.row)" v-if="+scope.row.status !== 1">
+              编辑
+            </el-button>
+            <el-button @click="handleEdit(scope.$index, scope.row)" v-else> 查看 </el-button>
             <el-button type="danger" @click="handleDelete(scope.$index, scope.row)">
               删除
             </el-button>
@@ -131,17 +159,19 @@ import {
   ElTableColumn,
   ElSwitch,
   ElOption,
-  ElPagination
+  ElPagination,
+  ElMessage
 } from 'element-plus';
 import moment from 'moment';
+import { useRouter } from 'vue-router';
 import ElCrumb from '@/web-bs/components/crumb.vue';
-import { findArticle } from '@/api/article';
+import { findArticle, editArticle } from '@/api/article';
 import statusDict from '@/config/dict';
+import fixStyle from '@/utils/fixStyle';
 
+const router = useRouter();
 const refArticleForm = ref();
-const openSwitch = ref(true);
-const closeSwitch = ref(false);
-const currentPage = ref(4);
+const currentPage = ref(1);
 const pageSize = ref(10);
 const data = reactive({
   articleForm: {
@@ -191,7 +221,7 @@ const shortcuts = [
     }
   }
 ];
-
+// 获取文章列表数据
 async function getTableData() {
   const params = {
     title: data.articleForm?.title,
@@ -211,6 +241,7 @@ async function getTableData() {
     state.total = resTableData?.data?.total;
   }
 }
+// 重置文章Form
 function reSetForm() {
   console.log('reSetForm');
   data.articleForm = {
@@ -221,20 +252,43 @@ function reSetForm() {
     createTime: ''
   };
 }
-function findTableData() {
-  getTableData();
-}
+// 编辑文章列表
 function handleEdit(index: number, row: any) {
   console.log('handleEdit', index, row);
+  router.push(`/backBlog/articleEdit?id=${row.id}`);
 }
+// 删除文章列表
 function handleDelete(index: number, row: any) {
   console.log('handleDelete', index, row);
 }
+// page size变化
 function handleSizeChange(val: number) {
   console.log(`${val} items per page`);
 }
+// page num变化
 function handleCurrentChange(val: number) {
   console.log(`current page: ${val}`);
+}
+// 改变文章状态
+async function changeArticleStatus(scope: any) {
+  const params = {
+    id: scope.row.id,
+    status: scope.row.status
+  };
+  const resStatus = await editArticle(params);
+  if (resStatus && (resStatus as any).code === 200) {
+    ElMessage({
+      message: '编辑成功',
+      type: 'success'
+    });
+    getTableData();
+    return true;
+  }
+  ElMessage({
+    message: '编辑失败',
+    type: 'error'
+  });
+  return false;
 }
 
 onMounted(async () => {

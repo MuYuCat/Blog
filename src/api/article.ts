@@ -1,7 +1,7 @@
 import request from './request';
 
 // 新增文章
-const articleAdd = (data: any) => {
+const addArticle = (data: any) => {
   return request({
     url: '/blog/article/add',
     method: 'post',
@@ -12,10 +12,28 @@ const articleAdd = (data: any) => {
 // 查找文章
 const findArticle = (params: any) => {
   return request({
-    url: '/blog/article/findArticle',
+    url: '/blog/article/find',
     method: 'get',
     params
   });
 };
 
-export { articleAdd, findArticle };
+// 编辑文章
+const editArticle = (params?: any) => {
+  return request({
+    url: '/blog/article/edit',
+    method: 'post',
+    params
+  });
+};
+
+// id查找文章
+const findArticleById = (params?: any) => {
+  return request({
+    url: '/blog/article/findId',
+    method: 'get',
+    params
+  });
+};
+
+export { addArticle, findArticle, editArticle, findArticleById };

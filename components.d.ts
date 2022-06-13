@@ -10,11 +10,14 @@ declare module '@vue/runtime-core' {
     ClickPage: typeof import('./src/components/clickPage.vue')['default'];
     ElButton: typeof import('element-plus/es')['ElButton'];
     ElCard: typeof import('element-plus/es')['ElCard'];
+    ElCheckTag: typeof import('element-plus/es')['ElCheckTag'];
     ElDialog: typeof import('element-plus/es')['ElDialog'];
     ElForm: typeof import('element-plus/es')['ElForm'];
     ElFormItem: typeof import('element-plus/es')['ElFormItem'];
     ElInput: typeof import('element-plus/es')['ElInput'];
+    ElPopconfirm: typeof import('element-plus/es')['ElPopconfirm'];
     ElPopover: typeof import('element-plus/es')['ElPopover'];
+    ElTag: typeof import('element-plus/es')['ElTag'];
     Footer: typeof import('./src/components/footer.vue')['default'];
     Header: typeof import('./src/components/header.vue')['default'];
     RouterLink: typeof import('vue-router')['RouterLink'];

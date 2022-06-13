@@ -1,7 +1,10 @@
-.el-table__header-wrapper tr td.el-table-fixed-column--right {
+.el-table__header-wrapper tr th.el-table-fixed-column--right {
   z-index: 1 !important;
 }
-.el-table__body-wrapper tr td.el-table-fixed-column--right {
+.el-table__body-wrapper tr th.el-table-fixed-column--right {
+  z-index: 1 !important;
+}
+.el-table__inner-wrapper::before {
   z-index: 1 !important;
 }
 .el-table.is-scrolling-left .el-table-fixed-column--right.is-first-column::before {
