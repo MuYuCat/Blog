@@ -3,7 +3,7 @@
     <el-crumb :title="data.title" :routes="data.routes"></el-crumb>
     <el-card shadow="always" class="md-write-card">
       <div class="md-write-flex">
-        <el-input v-model="data.name" placeholder="请输入文章标题..." class="md-write-name" />
+        <el-input v-model="articleTitle" placeholder="请输入文章标题..." class="md-write-name" />
         <el-popover
           v-model:visible="data.showPopover"
           placement="bottom-end"
@@ -18,14 +18,22 @@
           <template #default>
             <div class="show-article-popover">
               <div class="popover-title">{{ data.title }}</div>
-              <el-form :model="data.articleForm" label-width="80px" class="popover-content">
-                <el-form-item label="标签:" size="large">
+              <el-form
+                :model="data.articleForm"
+                label-width="84px"
+                class="popover-content"
+                ref="ruleFormRef"
+                :rules="data.articleFormRules"
+                :hide-required-asterisk="false"
+              >
+                <el-form-item label="标签:" size="large" prop="tags">
                   <div v-if="!showDelTag">
                     <el-check-tag
                       v-for="tag in showTags"
                       :key="tag"
                       class="popover-content-tag"
                       closable
+                      :checked="(data.articleForm.tags as string[]).includes(tag)"
                       @change="clickTag(tag)"
                       :disable-transitions="true"
                     >
@@ -34,13 +42,13 @@
                   </div>
                   <div v-else>
                     <el-tag
-                      v-for="tag in showTags"
+                      v-for="(tag, index) in showTags"
                       :key="tag"
                       class="popover-content-tag"
                       closable
                       :check="checked"
                       :disable-transitions="true"
-                      @close="delTag(tag)"
+                      @close="delTag(tag, index)"
                     >
                       {{ tag }}
                     </el-tag>
@@ -49,10 +57,10 @@
                     v-if="inputVisible"
                     ref="InputRef"
                     v-model="inputValue"
+                    class="popover-content-input"
                     size="large"
                     clearable
                     style="width: 100px; height: 30px"
-                    @keyup.enter="addNewTag"
                     @blur="addNewTag"
                   />
                   <el-button
@@ -72,15 +80,15 @@
                     -
                   </el-button>
                 </el-form-item>
-                <el-form-item label="参考链接:" size="large">
+                <el-form-item label="参考链接:" size="large" prop="url">
                   <el-input
                     v-model="data.articleForm.url"
                     placeholder="请输入链接"
                     clearable
-                    style="width: 370px; height: 40px"
+                    style="width: 414px; height: 40px"
                   />
                 </el-form-item>
-                <el-form-item label="文章简介:" size="large">
+                <el-form-item label="文章简介:" size="large" prop="introduction">
                   <el-input
                     v-model="data.articleForm.introduction"
                     maxlength="100"
@@ -90,10 +98,16 @@
                     :rows="5"
                   />
                 </el-form-item>
+                <el-form-item label="状态:" size="large" prop="status">
+                  <el-radio-group v-model="data.articleForm.status">
+                    <el-radio label="0" size="large" border>草稿箱</el-radio>
+                    <el-radio label="1" size="large" border>发布</el-radio>
+                  </el-radio-group>
+                </el-form-item>
               </el-form>
               <div class="popover-btn">
                 <el-button plain type="info" @click="closePopover" size="large">取消</el-button>
-                <el-button plain size="large" @click="publicArticle"> 确定并发布 </el-button>
+                <el-button plain size="large" @click="publicArticle"> 确定 </el-button>
               </div>
             </div>
           </template>
@@ -101,9 +115,10 @@
       </div>
       <Editor
         class="editos"
-        :value="data.value"
+        :value="articleContent"
         :plugins="data.plugins"
         :locale="zhHans"
+        @change="showChange"
         placeholder="请开始天马行空吧～"
       />
     </el-card>
@@ -111,7 +126,7 @@
 </template>
 
 <script lang="ts" setup>
-import { nextTick, onMounted, reactive, ref } from 'vue';
+import { isReactive, nextTick, onMounted, reactive, ref } from 'vue';
 import { Editor } from '@bytemd/vue-next';
 // import { Viewer } from '@bytemd/vue-next';
 import 'bytemd/dist/index.css'; // bytemd 基础样式
@@ -137,58 +152,29 @@ import gemoji from '@bytemd/plugin-gemoji'; // emoji😊 代码
 import mediumZoom from '@bytemd/plugin-medium-zoom';
 import mermaid from '@bytemd/plugin-mermaid'; // 图表 / 流程图
 
-import { ElInput, ElButton, ElNotification } from 'element-plus';
+import { ElInput, ElButton, ElMessage } from 'element-plus';
 import { storeToRefs } from 'pinia';
 import { useRoute, useRouter } from 'vue-router';
 import { addArticle, findArticleById } from '@/api/article';
 import useUserStore from '@/store/user';
 import ElCrumb from '@/web-bs/components/crumb.vue';
 import { routes, title, editRoutes, editTitle } from './config';
+import { addTags, getTags, delTags } from '@/api/dict';
 
 const userStore = useUserStore();
 const { userName } = storeToRefs(userStore);
 const router = useRouter();
 const route = useRoute();
 
+const showTags = ref<any[]>([]);
 const inputValue = ref('');
-const showTags = ref(['Tag 1', 'Tag 2', 'Tag 3']);
 const inputVisible = ref(false);
 const InputRef = ref<InstanceType<typeof ElInput>>();
-const checked = ref(false);
 const showDelTag = ref(false);
-
-// 点击删除tag
-function delTag(tag: string) {
-  showTags.value.splice(showTags.value.indexOf(tag), 1);
-}
-
-// 展示tag输入框
-function showInput() {
-  inputVisible.value = true;
-  nextTick(() => {
-    InputRef.value!.input!.focus();
-  });
-}
-
-// 添加新tag
-function addNewTag() {
-  if (inputValue.value) {
-    showTags.value.push(inputValue.value);
-  }
-  inputVisible.value = false;
-  inputValue.value = '';
-}
-
-// 删除tag
-function delThisTag() {
-  showDelTag.value = !showDelTag.value;
-}
-
-// 选择Tag
-function clickTag(tag: string) {
-  console.log(tag);
-  // checked.value = status;
-}
+const checked = ref(false);
+const ruleFormRef = ref(null);
+const articleTitle = ref('');
+const articleContent = ref('');
 
 const data = reactive({
   plugins: [
@@ -203,22 +189,29 @@ const data = reactive({
     math({ locale: mathZhHans }),
     mermaid({ locale: mermaidZhHans })
   ],
-  name: '',
-  value: '',
   routes: [],
   title: '',
   showPopover: false,
   articleForm: {
-    tags: '',
+    tags: [],
     url: '',
-    introduction: ''
+    introduction: '',
+    status: ''
+  },
+  articleFormRules: {
+    tags: [{ required: true, message: 'Please select tags ', trigger: 'blur' }],
+    url: [
+      { required: false },
+      {
+        pattern: /^((https?|ftp):\/\/)?([\da-z.-]+)\.([a-z.]{2,6})(\/\w\.-]*)*\/?/,
+        message: 'Please input the correct url ',
+        trigger: 'blur'
+      }
+    ],
+    introduction: [{ required: true, message: 'Please input introduction ', trigger: 'blur' }],
+    status: [{ required: true, message: 'Please select status ', trigger: 'blur' }]
   }
 });
-
-// 展开popover
-function showPopover() {
-  data.showPopover = true;
-}
 
 // 关闭popover
 function closePopover() {
@@ -227,24 +220,32 @@ function closePopover() {
 
 // 发布文章
 async function publicArticle() {
-  closePopover();
-  const params = {
-    title: data.name,
-    author: userName.value,
-    content: data.value,
-    tags: ''
-  };
-  const resArticleAdd = await addArticle(params);
-  if (resArticleAdd && (resArticleAdd as any).code === 200) {
-    data.value = '';
-    data.name = '';
-    ElNotification.success({
-      title: '文章管理',
-      message: '发布成功',
-      duration: 4500
-    });
-    router.push('/backBlog/articleMgt');
-  }
+  if (!ruleFormRef) return;
+  await (ruleFormRef as any).value.validate(async (valid: any) => {
+    if (valid) {
+      const params = {
+        title: articleTitle.value,
+        author: userName.value,
+        content: articleContent.value,
+        tags: data.articleForm.tags,
+        url: data.articleForm.url,
+        introduction: data.articleForm.introduction,
+        status: +data.articleForm.status
+      };
+      const resArticleAdd = await addArticle(params);
+      if (resArticleAdd && (resArticleAdd as any).code === 200) {
+        articleContent.value = '';
+        articleTitle.value = '';
+        ElMessage.success('发布成功');
+        closePopover();
+        router.push('/backBlog/articleMgt');
+      } else {
+        ElMessage.error('发布失败');
+      }
+    } else {
+      ElMessage.warning('请填写完整参数');
+    }
+  });
 }
 
 // 获取文章
@@ -254,9 +255,96 @@ async function getArticle(id: string) {
   };
   const resArticleFind = await findArticleById(params);
   if (resArticleFind && (resArticleFind as any).code === 200) {
-    data.value = (resArticleFind as any)?.data?.row?.content || '';
-    data.name = (resArticleFind as any)?.data?.row?.title || '';
+    console.log('before', (resArticleFind as any)?.data?.row?.content, articleContent.value);
+    articleContent.value = (resArticleFind as any)?.data?.row?.content || '';
+    console.log('after', (resArticleFind as any)?.data?.row?.content, articleContent.value);
+    articleTitle.value = (resArticleFind as any)?.data?.row?.title || '';
+    data.articleForm.tags = (resArticleFind as any)?.data?.row?.tags || [];
+    data.articleForm.url = (resArticleFind as any)?.data?.row?.url || '';
+    data.articleForm.introduction = (resArticleFind as any)?.data?.row?.introduction || '';
+    data.articleForm.status = `${(resArticleFind as any)?.data?.row?.status}` || '';
   }
+}
+
+// 展示tag输入框
+function showInput() {
+  inputVisible.value = true;
+  nextTick(() => {
+    InputRef.value!.input!.focus();
+  });
+}
+
+// 获取tags
+async function getTag() {
+  const resGetTags = await getTags();
+  if (resGetTags?.data?.rows && (resGetTags as any).code === 200) {
+    showTags.value = [];
+    resGetTags.data.rows.map((item: any) => {
+      showTags.value.push(item.dictName);
+      return '';
+    });
+  }
+}
+
+// 点击删除tag
+async function delTag(tag: string, index: number) {
+  // showTags.value.splice(showTags.value.indexOf(tag), 1);
+  const params = {
+    dictName: showTags.value[+index]
+  };
+  const resDelTags = await delTags(params);
+  if (resDelTags && (resDelTags as any).code === 200) {
+    showDelTag.value = false;
+    ElMessage.success('删除标签成功');
+    await getTag();
+  }
+}
+
+// 添加新tag
+async function addNewTag() {
+  if (inputValue.value) {
+    const params = {
+      dictValue: +(showTags.value as any).length + 1,
+      dictName: inputValue.value
+    };
+    const resTagsAdd = await addTags(params);
+    if (resTagsAdd && (resTagsAdd as any).code === 200) {
+      ElMessage.success('添加标签成功');
+      await getTag();
+    } else {
+      inputValue.value = '';
+      ElMessage.error('添加标签失败');
+    }
+  }
+  inputVisible.value = false;
+  inputValue.value = '';
+}
+
+// 删除tag
+function delThisTag() {
+  showDelTag.value = !showDelTag.value;
+}
+
+// 选择Tag
+function clickTag(tag: string) {
+  console.log(data.articleForm.tags, tag);
+  if ((data.articleForm.tags as string[]).includes(tag)) {
+    (data.articleForm.tags as string[]).splice(showTags.value.indexOf(tag), 1);
+  } else {
+    (data.articleForm.tags as string[]).push(tag);
+  }
+}
+
+// 展开popover
+async function showPopover() {
+  data.showPopover = true;
+  await getTag();
+}
+//
+function showChange(v: any) {
+  articleContent.value = v;
+  console.log(isReactive(data));
+  console.log('showChange', articleContent.value);
 }
 
 onMounted(async () => {
@@ -345,8 +433,10 @@ onMounted(async () => {
     .popover-content-tag {
       margin: 6px 6px;
       height: 32px;
-      width: 74px;
       line-height: 20px;
+    }
+    .popover-content-input {
+      margin: 6px 6px;
     }
     .popover-content-btn {
       margin: 6px 6px;

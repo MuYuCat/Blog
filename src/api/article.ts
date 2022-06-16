@@ -19,11 +19,11 @@ const findArticle = (params: any) => {
 };
 
 // 编辑文章
-const editArticle = (params?: any) => {
+const editArticle = (data?: any) => {
   return request({
     url: '/blog/article/edit',
     method: 'post',
-    params
+    data
   });
 };
 
@@ -36,4 +36,13 @@ const findArticleById = (params?: any) => {
   });
 };
 
-export { addArticle, findArticle, editArticle, findArticleById };
+// id查找文章
+const delArticle = (data?: any) => {
+  return request({
+    url: '/blog/article/del',
+    method: 'post',
+    data
+  });
+};
+
+export { addArticle, findArticle, editArticle, findArticleById, delArticle };

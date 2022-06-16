@@ -7,7 +7,7 @@ const fixStyle = (num: string | number, style?: string) => {
       return fixNum || '--';
     }
     default: {
-      const fixNum = num === '' ? '--' : num;
+      const fixNum = num === '' || num === ' ' ? '--' : num;
       return fixNum || '--';
     }
   }

@@ -11,12 +11,16 @@ declare module '@vue/runtime-core' {
     ElButton: typeof import('element-plus/es')['ElButton'];
     ElCard: typeof import('element-plus/es')['ElCard'];
     ElCheckTag: typeof import('element-plus/es')['ElCheckTag'];
+    ElCrumb: typeof import('element-plus/es')['ElCrumb'];
     ElDialog: typeof import('element-plus/es')['ElDialog'];
     ElForm: typeof import('element-plus/es')['ElForm'];
     ElFormItem: typeof import('element-plus/es')['ElFormItem'];
     ElInput: typeof import('element-plus/es')['ElInput'];
+    ElLink: typeof import('element-plus/es')['ElLink'];
     ElPopconfirm: typeof import('element-plus/es')['ElPopconfirm'];
     ElPopover: typeof import('element-plus/es')['ElPopover'];
+    ElRadio: typeof import('element-plus/es')['ElRadio'];
+    ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup'];
     ElTag: typeof import('element-plus/es')['ElTag'];
     Footer: typeof import('./src/components/footer.vue')['default'];
     Header: typeof import('./src/components/header.vue')['default'];

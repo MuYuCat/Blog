@@ -74,36 +74,45 @@
       <el-table :data="state.isTableData" style="width: 100%" stripe>
         <el-table-column type="expand">
           <template #default="props">
-            <div>暂无简介{{ props?.row?.zip }}</div>
+            <div class="article-item-introduction">
+              简介:
+              <div class="article-item-introduction-content">
+                {{ fixStyle(props?.row?.introduction) }}
+              </div>
+            </div>
           </template>
         </el-table-column>
-        <el-table-column prop="id" label="ID" min-width="180" align="center" />
+        <el-table-column prop="id" label="ID" min-width="140" align="center" />
         <el-table-column prop="title" label="文章标题" min-width="180" align="center">
           <template #default="scope">
             {{ fixStyle(scope.row.title) }}
           </template>
         </el-table-column>
-        <el-table-column prop="author" label="作者" min-width="180" align="center">
+        <el-table-column prop="author" label="作者" min-width="80" align="center">
           <template #default="scope">
             {{ fixStyle(scope.row.author) }}
           </template>
         </el-table-column>
         <el-table-column prop="tags" label="标签" min-width="180" align="center">
           <template #default="scope">
-            {{ fixStyle(scope.row.tags) }}
+            <div v-for="item in scope.row.tags" :key="item" class="article-item-tags">
+              <el-tag size="large">{{ item }}</el-tag>
+            </div>
           </template>
         </el-table-column>
-        <el-table-column prop="url" label="参考链接" min-width="180" align="center">
+        <el-table-column prop="url" label="参考链接" min-width="220" align="left">
           <template #default="scope">
-            {{ fixStyle(scope.row.url) }}
+            <el-link :href="scope.row.url" target="_blank" :underline="false">{{
+              fixStyle(scope.row.url)
+            }}</el-link>
           </template>
         </el-table-column>
-        <el-table-column prop="created_at" label="创建时间" min-width="180" align="center">
+        <el-table-column prop="created_at" label="创建时间" min-width="160" align="center">
           <template #default="scope">
             {{ fixStyle(scope.row.created_at, 'time') }}
           </template>
         </el-table-column>
-        <el-table-column prop="updated_at" label="更新时间" min-width="180" align="center">
+        <el-table-column prop="updated_at" label="更新时间" min-width="160" align="center">
           <template #default="scope">
             {{ fixStyle(scope.row.updated_at, 'time') }}
           </template>
@@ -121,17 +130,18 @@
         </el-table-column>
         <el-table-column label="操作" min-width="180" fixed="right" align="center">
           <template #default="scope">
-            <el-button @click="handleEdit(scope.$index, scope.row)" v-if="+scope.row.status !== 1">
+            <el-button @click="handleEdit(scope.row)" v-if="+scope.row.status !== 1">
               编辑
             </el-button>
-            <el-button @click="handleEdit(scope.$index, scope.row)" v-else> 查看 </el-button>
-            <el-button type="danger" @click="handleDelete(scope.$index, scope.row)">
+            <el-button @click="handleViewer(scope.row)" v-else> 查看 </el-button>
+            <el-button type="danger" @click="openMsgBox(scope.row)" v-if="+scope.row.status !== 1">
               删除
             </el-button>
           </template>
         </el-table-column>
       </el-table>
       <el-pagination
+        v-show="false"
         class="article-pagination"
         v-model:currentPage="currentPage"
         v-model:page-size="pageSize"
@@ -160,12 +170,13 @@ import {
   ElSwitch,
   ElOption,
   ElPagination,
-  ElMessage
+  ElMessage,
+  ElMessageBox
 } from 'element-plus';
 import moment from 'moment';
 import { useRouter } from 'vue-router';
 import ElCrumb from '@/web-bs/components/crumb.vue';
-import { findArticle, editArticle } from '@/api/article';
+import { findArticle, editArticle, delArticle } from '@/api/article';
 import statusDict from '@/config/dict';
 import fixStyle from '@/utils/fixStyle';
 
@@ -189,6 +200,7 @@ const data = reactive({
 });
 const state = reactive({
   isTableData: [],
+  tags: [],
   total: 0
 });
 
@@ -238,12 +250,12 @@ async function getTableData() {
   const resTableData = await findArticle(params);
   if (resTableData && (resTableData as any).code === 200) {
     state.isTableData = resTableData?.data?.rows;
+    // state.tags = resTableData?.data?.rows?.;
     state.total = resTableData?.data?.total;
   }
 }
 // 重置文章Form
 function reSetForm() {
-  console.log('reSetForm');
   data.articleForm = {
     title: '',
     status: 'all',
@@ -252,14 +264,44 @@ function reSetForm() {
     createTime: ''
   };
 }
-// 编辑文章列表
-function handleEdit(index: number, row: any) {
-  console.log('handleEdit', index, row);
+// 编辑文章
+function handleEdit(row: any) {
   router.push(`/backBlog/articleEdit?id=${row.id}`);
 }
+// 查看文章
+function handleViewer(row: any) {
+  router.push(`/backBlog/articleView?id=${row.id}`);
+}
 // 删除文章列表
-function handleDelete(index: number, row: any) {
-  console.log('handleDelete', index, row);
+async function handleDelete(row: any) {
+  const params = {
+    id: row.id
+  };
+  const resDelArticle = await delArticle(params);
+  if (resDelArticle && (resDelArticle as any).code === 200) {
+    ElMessage({
+      message: '删除成功',
+      type: 'success'
+    });
+    await getTableData();
+  } else {
+    ElMessage({
+      message: '删除失败',
+      type: 'error'
+    });
+  }
+}
+// 删除二次确认
+async function openMsgBox(row: any) {
+  ElMessageBox.confirm('确定要删除这篇文章吗?', '删除文章', {
+    confirmButtonText: '确定',
+    cancelButtonText: '再想想',
+    type: 'warning'
+  })
+    .then(async () => {
+      await handleDelete(row);
+    })
+    .catch(() => {});
 }
 // page size变化
 function handleSizeChange(val: number) {
@@ -332,6 +374,20 @@ onMounted(async () => {
   .article-table {
     border-radius: 10px;
     margin: 16px 0 48px 0;
+    .article-item-introduction {
+      display: flex;
+      margin: 14px 100px;
+      font-size: 14px;
+      font-weight: 600;
+      .article-item-introduction-content {
+        font-weight: 500;
+        margin-left: 24px;
+      }
+    }
+    .article-item-tags {
+      display: inline-block;
+      margin: 4px;
+    }
   }
   .article-pagination {
     height: 50px;
