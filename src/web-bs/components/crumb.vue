@@ -2,7 +2,7 @@
   <el-card shadow="always" class="article-title">
     <el-breadcrumb separator="/" class="article-title-crumb">
       <el-breadcrumb-item v-for="item in routes" :key="(item as any).breadcrumbName">
-        <a @click="changePath(item)">{{(item as any).breadcrumbName}}</a>
+        <a @click="changePath(item)">{{ (item as any).breadcrumbName }}</a>
       </el-breadcrumb-item>
     </el-breadcrumb>
     <div class="article-title-istitle">{{ title }}</div>

@@ -113,52 +113,39 @@
           </template>
         </el-popover>
       </div>
-      <Editor
-        class="editos"
-        :value="articleContent"
-        :plugins="data.plugins"
-        :locale="zhHans"
-        @change="showChange"
-        placeholder="请开始天马行空吧～"
-      />
+      <md-editor
+        v-model="article.text"
+        :preview-theme="article.previewTheme"
+        :code-theme="article.codeTheme"
+        :editorId="article.mdId"
+        :toolbarsExclude="article.toolbarsExclude as ToolbarNames[]"
+        :language="article.language"
+        :showCodeRowNumber="true"
+        @onGetCatalog="onGetCatalog"
+        @onHtmlChanged="saveHtml"
+        @onChange="saveText"
+        @onSave="saveText"
+        @onError="showError"
+      >
+      </md-editor>
+      <md-atalog :editorId="article.id" :scrollElement="article.scrollElement" />
     </el-card>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { isReactive, nextTick, onMounted, reactive, ref } from 'vue';
-import { Editor } from '@bytemd/vue-next';
-// import { Viewer } from '@bytemd/vue-next';
-import 'bytemd/dist/index.css'; // bytemd 基础样式
-import 'highlight.js/styles/vs.css';
-import 'juejin-markdown-themes/dist/juejin.min.css'; // md theme
-// import 'juejin-markdown-themes/dist/github.min.css';
-// @ts-ignore
-import zhHans from 'bytemd/lib/locales/zh_Hans.json';
-// @ts-ignore
-import mermaidZhHans from '@bytemd/plugin-mermaid/lib/locales/zh_Hans.json';
-// @ts-ignore
-import mathZhHans from '@bytemd/plugin-math/lib/locales/zh_Hans.json';
-// @ts-ignore
-import gfmZhHans from '@bytemd/plugin-gfm/lib/locales/zh_Hans.json';
-import gfm from '@bytemd/plugin-gfm'; // 超链接、删除线、表格、任务列表
-import highlight from '@bytemd/plugin-highlight';
-import breaks from '@bytemd/plugin-breaks';
-import math from '@bytemd/plugin-math'; // 数学公式
-import 'katex/dist/katex.min.css'; // for plugin-math
-import footnotes from '@bytemd/plugin-footnotes'; // 头部元信息
-import frontmatter from '@bytemd/plugin-frontmatter';
-import gemoji from '@bytemd/plugin-gemoji'; // emoji😊 代码
-import mediumZoom from '@bytemd/plugin-medium-zoom';
-import mermaid from '@bytemd/plugin-mermaid'; // 图表 / 流程图
+import { nextTick, onMounted, reactive, ref } from 'vue';
+import MdEditor, { ToolbarNames } from 'md-editor-v3';
+import 'md-editor-v3/lib/style.css';
+// import sanitizeHtml from 'sanitize-html';
 
 import { ElInput, ElButton, ElMessage } from 'element-plus';
 import { storeToRefs } from 'pinia';
 import { useRoute, useRouter } from 'vue-router';
-import { addArticle, findArticleById } from '@/api/article';
 import useUserStore from '@/store/user';
 import ElCrumb from '@/web-bs/components/crumb.vue';
 import { routes, title, editRoutes, editTitle } from './config';
+import { addArticle, findArticleById, editArticle } from '@/api/article';
 import { addTags, getTags, delTags } from '@/api/dict';
 
 const userStore = useUserStore();
@@ -174,21 +161,23 @@ const showDelTag = ref(false);
 const checked = ref(false);
 const ruleFormRef = ref(null);
 const articleTitle = ref('');
-const articleContent = ref('');
+
+const article = reactive({
+  id: '',
+  text: '',
+  html: '',
+  previewTheme: 'cyanosis',
+  codeTheme: 'atom',
+  catalogList: [],
+  mdId: 'muyucat-md',
+  scrollElement: document.documentElement,
+  toolbarsExclude: ['github'],
+  language: 'my-lang'
+});
 
 const data = reactive({
-  plugins: [
-    // 将所有的扩展功能放入插件数组中，然后就可以生效了
-    highlight(),
-    breaks(),
-    frontmatter(),
-    footnotes(),
-    gemoji(),
-    mediumZoom(),
-    gfm({ locale: gfmZhHans }),
-    math({ locale: mathZhHans }),
-    mermaid({ locale: mermaidZhHans })
-  ],
+  isEdit: false,
+  plugins: [],
   routes: [],
   title: '',
   showPopover: false,
@@ -213,6 +202,117 @@ const data = reactive({
   }
 });
 
+// md配置
+MdEditor.config({
+  editorConfig: {
+    languageUserDefined: {
+      'my-lang': {
+        toolbarTips: {
+          bold: '加粗',
+          underline: '下划线',
+          italic: '斜体',
+          strikeThrough: '删除线',
+          title: '标题',
+          sub: '下标',
+          sup: '上标',
+          quote: '引用',
+          unorderedList: '无序列表',
+          orderedList: '有序列表',
+          codeRow: '行内代码',
+          code: '块级代码',
+          link: '链接',
+          image: '图片',
+          table: '表格',
+          mermaid: 'mermaid图',
+          katex: '公式',
+          revoke: '后退',
+          next: '前进',
+          save: '保存',
+          prettier: '美化',
+          pageFullscreen: '浏览器全屏',
+          fullscreen: '屏幕全屏',
+          preview: '预览',
+          htmlPreview: 'html代码预览',
+          catalog: '目录',
+          github: '源码地址'
+        },
+        titleItem: {
+          h1: '一级标题',
+          h2: '二级标题',
+          h3: '三级标题',
+          h4: '四级标题',
+          h5: '五级标题',
+          h6: '六级标题'
+        },
+        imgTitleItem: {
+          link: '添加链接',
+          upload: '上传图片',
+          clip2upload: '裁剪上传'
+        },
+        linkModalTips: {
+          title: '添加',
+          descLable: '链接描述：',
+          descLablePlaceHolder: '请输入描述...',
+          urlLable: '链接地址：',
+          UrlLablePlaceHolder: '请输入链接...',
+          buttonOK: '确定'
+        },
+        clipModalTips: {
+          title: '裁剪图片上传',
+          buttonUpload: '上传'
+        },
+        copyCode: {
+          text: '复制代码',
+          successTips: '已复制！',
+          failTips: '复制失败！'
+        },
+        mermaid: {
+          flow: '流程图',
+          sequence: '时序图',
+          gantt: '甘特图',
+          class: '类图',
+          state: '状态图',
+          pie: '饼图',
+          relationship: '关系图',
+          journey: '旅程图'
+        },
+        katex: {
+          inline: '行内公式',
+          block: '块级公式'
+        },
+        footer: {
+          markdownTotal: '字数',
+          scrollAuto: '同步滚动'
+        }
+      }
+    }
+  }
+});
+
+// // 自行处理不安全的 html 内容
+// const sanitize = (html: string) => {
+//   return sanitizeHtml(html);
+// };
+
+// md获取目录
+const onGetCatalog = (list: any) => {
+  article.catalogList = list;
+};
+
+// 获取html格式文件
+function saveHtml(html: string) {
+  article.html = html;
+}
+
+// 保存md格式文件
+function saveText(md: string) {
+  article.text = md;
+}
+// 撰写报错
+function showError(error: any) {
+  console.log(error);
+}
+
 // 关闭popover
 function closePopover() {
   data.showPopover = false;
@@ -224,23 +324,30 @@ async function publicArticle() {
   await (ruleFormRef as any).value.validate(async (valid: any) => {
     if (valid) {
       const params = {
+        id: article.id,
         title: articleTitle.value,
         author: userName.value,
-        content: articleContent.value,
+        content: article.text,
+        html: article.html,
         tags: data.articleForm.tags,
         url: data.articleForm.url,
         introduction: data.articleForm.introduction,
         status: +data.articleForm.status
       };
-      const resArticleAdd = await addArticle(params);
-      if (resArticleAdd && (resArticleAdd as any).code === 200) {
-        articleContent.value = '';
+      let resArticle = {};
+      if (!data.isEdit) {
+        resArticle = await addArticle(params);
+      } else {
+        resArticle = await editArticle(params);
+      }
+      if (resArticle && (resArticle as any).code === 200) {
+        article.text = '';
         articleTitle.value = '';
-        ElMessage.success('发布成功');
+        ElMessage.success(data.isEdit ? '编辑成功' : '发布成功');
         closePopover();
         router.push('/backBlog/articleMgt');
       } else {
-        ElMessage.error('发布失败');
+        ElMessage.error(data.isEdit ? '编辑失败' : '发布失败');
       }
     } else {
       ElMessage.warning('请填写完整参数');
@@ -255,9 +362,7 @@ async function getArticle(id: string) {
   };
   const resArticleFind = await findArticleById(params);
   if (resArticleFind && (resArticleFind as any).code === 200) {
-    console.log('before', (resArticleFind as any)?.data?.row?.content, articleContent.value);
-    articleContent.value = (resArticleFind as any)?.data?.row?.content || '';
-    console.log('after', (resArticleFind as any)?.data?.row?.content, articleContent.value);
+    article.text = (resArticleFind as any)?.data?.row?.content || '';
     articleTitle.value = (resArticleFind as any)?.data?.row?.title || '';
     data.articleForm.tags = (resArticleFind as any)?.data?.row?.tags || [];
     data.articleForm.url = (resArticleFind as any)?.data?.row?.url || '';
@@ -340,20 +445,17 @@ async function showPopover() {
   data.showPopover = true;
   await getTag();
 }
-//
-function showChange(v: any) {
-  articleContent.value = v;
-  console.log(isReactive(data));
-  console.log('showChange', articleContent.value);
-}
 
 onMounted(async () => {
   const { id } = route.query;
   if (id) {
+    article.id = id as string;
+    data.isEdit = true;
     (data as any).routes = editRoutes;
     data.title = editTitle;
     getArticle(id as string);
   } else {
+    data.isEdit = false;
     (data as any).routes = routes;
     data.title = title;
   }
@@ -363,11 +465,14 @@ onMounted(async () => {
 <style lang="scss">
 .md-write {
   margin-top: 0px;
-  .editos {
-    .bytemd {
-      height: calc(100vh - 353px) !important; // 改变编辑器默认高度，不需要的可以不配置
-      text-align: start;
-    }
+  .md {
+    height: calc(100vh - 353px) !important; // 改变编辑器默认高度，不需要的可以不配置
+    text-align: start;
+  }
+  .md-fullscreen {
+    margin-top: 56px;
+    height: calc(100vh - 56px) !important; // 改变编辑器默认高度，不需要的可以不配置
+    text-align: start;
   }
   .el-input__wrapper {
     outline: none;

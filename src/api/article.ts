@@ -19,9 +19,9 @@ const findArticle = (params: any) => {
 };
 
 // 编辑文章
-const editArticle = (data?: any) => {
+const editStatus = (data?: any) => {
   return request({
-    url: '/blog/article/edit',
+    url: '/blog/article/switch',
     method: 'post',
     data
   });
@@ -45,4 +45,13 @@ const delArticle = (data?: any) => {
   });
 };
 
-export { addArticle, findArticle, editArticle, findArticleById, delArticle };
+// 编辑文章
+const editArticle = (data?: any) => {
+  return request({
+    url: '/blog/article/edit',
+    method: 'post',
+    data
+  });
+};
+
+export { addArticle, findArticle, editStatus, findArticleById, delArticle, editArticle };

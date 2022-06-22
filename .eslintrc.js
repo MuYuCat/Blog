@@ -24,6 +24,7 @@ module.exports = {
     'import/extensions': 'off',
     'import/no-absolute-path': 'off',
     'import/no-extraneous-dependencies': 'off',
+    'vue/multi-word-component-names': 0,
     'no-param-reassign': [
       'error',
       {

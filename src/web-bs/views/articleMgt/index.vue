@@ -176,7 +176,7 @@ import {
 import moment from 'moment';
 import { useRouter } from 'vue-router';
 import ElCrumb from '@/web-bs/components/crumb.vue';
-import { findArticle, editArticle, delArticle } from '@/api/article';
+import { findArticle, editStatus, delArticle } from '@/api/article';
 import statusDict from '@/config/dict';
 import fixStyle from '@/utils/fixStyle';
 
@@ -317,7 +317,7 @@ async function changeArticleStatus(scope: any) {
     id: scope.row.id,
     status: scope.row.status
   };
-  const resStatus = await editArticle(params);
+  const resStatus = await editStatus(params);
   if (resStatus && (resStatus as any).code === 200) {
     ElMessage({
       message: '编辑成功',
