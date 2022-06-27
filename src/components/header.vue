@@ -6,11 +6,22 @@
         <span class="header-name" @click="data.goToBackBlog">MuYuCat</span>
       </span>
       <span class="header-right">
-        <el-button plain size="large" @click="data.openLogin" v-if="!isLogIn">登陆</el-button>
+        <el-button
+          plain
+          size="large"
+          @click="data.openLogin"
+          v-if="!isLogIn"
+          v-track:click="{ sapmodid: 'header', eleid: 'login' }"
+          >登陆</el-button
+        >
         <div v-else class="header-icons">
           <a class="icons-head-bells" href="/"></a>
           <a class="icons-head-user" href="/"></a>
-          <a class="icons-head-login-out" @click="data.loginOut"></a>
+          <a
+            class="icons-head-login-out"
+            @click="data.loginOut"
+            v-track:click="{ sapmodid: 'header', eleid: 'out' }"
+          ></a>
         </div>
         <!-- <v-avatar v-else @click="goToBackBlog" class="header-avatar"></v-avatar> -->
       </span>

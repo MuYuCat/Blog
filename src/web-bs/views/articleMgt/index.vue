@@ -1,5 +1,5 @@
 <template>
-  <div class="article-manage">
+  <div class="article-manage" v-track:visit>
     <el-crumb :title="data.title" :routes="data.routes"></el-crumb>
     <el-card shadow="always" class="article-form">
       <el-form
@@ -35,19 +35,30 @@
         <el-form-item label="文章作者:" size="large">
           <el-select
             v-model="data.articleForm.author"
-            placeholder="全部"
-            disabled
+            placeholder="请选择文章作者"
             style="width: 200px; height: 40px"
           >
+            <el-option
+              v-for="item in authorsDict"
+              :key="(item as any).dictLabel"
+              :label="(item as any).dictLabel"
+              :value="(item as any).dictLabel"
+            />
           </el-select>
         </el-form-item>
         <el-form-item label="文章标签:" size="large">
           <el-select
             v-model="data.articleForm.tags"
-            placeholder="全部"
-            disabled
+            placeholder="请选择文章标签"
+            clearable
             style="width: 200px; height: 40px"
           >
+            <el-option
+              v-for="item in tagsDict"
+              :key="(item as any).dictName"
+              :label="(item as any).dictName"
+              :value="(item as any).dictName"
+            />
           </el-select>
         </el-form-item>
         <el-form-item label="创建日期:" size="large">
@@ -177,6 +188,7 @@ import moment from 'moment';
 import { useRouter } from 'vue-router';
 import ElCrumb from '@/web-bs/components/crumb.vue';
 import { findArticle, editStatus, delArticle } from '@/api/article';
+import { getTags, getAuthors } from '@/api/dict';
 import statusDict from '@/config/dict';
 import fixStyle from '@/utils/fixStyle';
 
@@ -184,12 +196,14 @@ const router = useRouter();
 const refArticleForm = ref();
 const currentPage = ref(1);
 const pageSize = ref(10);
+const tagsDict = ref([]);
+const authorsDict = ref([]);
 const data = reactive({
   articleForm: {
     title: '',
     status: 'all',
-    author: '',
-    tags: '',
+    author: '全部',
+    tags: '全部',
     createTime: ''
   },
   routes: [
@@ -236,21 +250,20 @@ const shortcuts = [
 // 获取文章列表数据
 async function getTableData() {
   const params = {
-    title: data.articleForm?.title,
-    status: data.articleForm?.status,
-    author: data.articleForm?.author,
-    tags: data.articleForm?.tags,
-    beginTime: data.articleForm?.createTime[0]
-      ? moment(data.articleForm?.createTime[0]).format('YYYY-MM-DD')
+    title: data?.articleForm?.title,
+    status: data?.articleForm?.status,
+    author: data?.articleForm?.author,
+    tags: data?.articleForm?.tags,
+    beginTime: data?.articleForm?.createTime[0]
+      ? moment(data?.articleForm?.createTime[0]).format('YYYY-MM-DD')
       : '',
-    endTime: data.articleForm?.createTime[1]
-      ? moment(data.articleForm?.createTime[1]).format('YYYY-MM-DD')
+    endTime: data?.articleForm?.createTime[1]
+      ? moment(data?.articleForm?.createTime[1]).format('YYYY-MM-DD')
       : ''
   };
   const resTableData = await findArticle(params);
   if (resTableData && (resTableData as any).code === 200) {
     state.isTableData = resTableData?.data?.rows;
-    // state.tags = resTableData?.data?.rows?.;
     state.total = resTableData?.data?.total;
   }
 }
@@ -259,8 +272,8 @@ function reSetForm() {
   data.articleForm = {
     title: '',
     status: 'all',
-    author: '',
-    tags: '',
+    author: '全部',
+    tags: '全部',
     createTime: ''
   };
 }
@@ -332,9 +345,27 @@ async function changeArticleStatus(scope: any) {
   });
   return false;
 }
+// 获取tags标签
+async function getTag() {
+  const resGetTags = await getTags();
+  if (resGetTags?.data?.rows && (resGetTags as any).code === 200) {
+    tagsDict.value = resGetTags?.data?.rows;
+    (tagsDict.value as any).unshift({ dictName: '全部' });
+  }
+}
+// 获取author标签
+async function getAuthor() {
+  const resGetAuthors = await getAuthors();
+  if (resGetAuthors?.data?.rows && (resGetAuthors as any).code === 200) {
+    authorsDict.value = resGetAuthors?.data?.rows;
+    (authorsDict.value as any).unshift({ dictLabel: '全部' });
+  }
+}
 
 onMounted(async () => {
   getTableData();
+  getTag();
+  getAuthor();
 });
 </script>
 

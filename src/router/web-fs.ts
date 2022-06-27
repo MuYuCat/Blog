@@ -7,7 +7,7 @@ const routes = [
     name: 'home',
     component: Home,
     meta: {
-      title: '',
+      title: '首页',
       isShowSidebar: false,
       isShowHead: true,
       isShowFoot: true,
@@ -19,7 +19,7 @@ const routes = [
     name: 'blog',
     component: Home,
     meta: {
-      title: '',
+      title: '首页',
       isShowSidebar: false,
       isShowHead: true,
       isShowFoot: true,

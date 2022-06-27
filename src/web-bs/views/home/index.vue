@@ -1,5 +1,5 @@
 <template>
-  <div class="blog-back-wrapper back-blog">
+  <div class="blog-back-wrapper back-blog" v-track:visit>
     <span class="back-blog-title">Back Blog</span>
     <a class="img-data-manage"></a>
   </div>
@@ -9,9 +9,7 @@
 import { defineComponent, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 
-// import markDown from '../markDown/index.vue';
 import useUserStore from '@/store/user';
-import showText from '@/components/showLog';
 
 export default defineComponent({
   name: 'BlogBackHome',
@@ -19,9 +17,7 @@ export default defineComponent({
     const userStore = useUserStore();
     const { isLogIn } = storeToRefs(userStore);
 
-    onMounted(async () => {
-      showText();
-    });
+    onMounted(async () => {});
     return {
       isLogIn
     };

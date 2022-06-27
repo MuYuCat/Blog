@@ -1,7 +1,4 @@
 import request from './request';
-import useLocationStore from '../store/map';
-
-const useMapStore = useLocationStore();
 
 /**
  * 地图-地理信息
@@ -10,12 +7,7 @@ const useMapStore = useLocationStore();
  * @param param coor 百度地图解码方式
  * @returns
  */
-const getLocation = () => {
-  const params = {
-    ip: useMapStore.cip,
-    ak: useMapStore.ak,
-    coor: useMapStore.coor
-  };
+const getLocation = (params: any) => {
   return request({
     url: '/map/location/ip',
     method: 'get',

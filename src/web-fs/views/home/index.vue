@@ -8,7 +8,6 @@
 import { defineComponent, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 
-import showText from '@/components/showLog';
 import content from '@/web-fs/views/content/index.vue';
 import useUserStore from '@/store/user';
 
@@ -35,7 +34,6 @@ export default defineComponent({
     };
 
     onMounted(async () => {
-      showText();
       getUserInfo();
     });
     return {

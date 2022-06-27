@@ -45,11 +45,23 @@
           />
         </el-form-item>
       </el-form>
-      <span class="content-forgot" @click="forgotMsg">忘记密码</span>
+      <span
+        class="content-forgot"
+        @click="forgotMsg"
+        v-track:click="{ sapmodid: 'login', eleid: 'forget' }"
+        >忘记密码</span
+      >
     </div>
     <template #footer>
       <span class="dialog-footer">
-        <el-button type="primary" plain size="large" @click="confirmLogin()" class="footer-confirm">
+        <el-button
+          type="primary"
+          plain
+          size="large"
+          @click="confirmLogin()"
+          class="footer-confirm"
+          v-track:click="{ sapmodid: 'login', eleid: 'login' }"
+        >
           登陆
         </el-button>
         <div class="footer-agreement">
@@ -79,7 +91,7 @@ import { ElMessage, ElNotification } from 'element-plus';
 import { Avatar, Lock } from '@element-plus/icons-vue';
 import useUserStore from '@/store/user';
 
-import { login } from '@/api/user';
+import { login, getInfo } from '@/api/user';
 import { USER_TOKEN } from '../../content';
 
 interface ILoginForm {
@@ -149,10 +161,25 @@ export default defineComponent({
               userStore.updateIsLogIn(true);
               // 存储token校验
               if ((res as any).msg) {
-                ElNotification.success({
-                  title: '权限提醒',
-                  message: '登陆成功',
-                  duration: 4500
+                await getInfo().then((resUserInfo: any) => {
+                  if (resUserInfo && resUserInfo.code === 200) {
+                    // 更改登录按钮状态
+                    userStore.updateIsLogIn(true);
+                    userStore.updateUserName(resUserInfo?.data?.userInfo?.username);
+                    ElNotification.success({
+                      title: '权限提醒',
+                      message: '登陆成功',
+                      duration: 4500
+                    });
+                  } else {
+                    // 更改登录按钮状态
+                    userStore.updateIsLogIn(false);
+                    ElNotification.warning({
+                      title: '权限提醒',
+                      message: '用户信息报错',
+                      duration: 4500
+                    });
+                  }
                 });
               }
               this.closeDialog();

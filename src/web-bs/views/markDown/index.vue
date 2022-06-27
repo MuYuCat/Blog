@@ -1,5 +1,5 @@
 <template>
-  <div class="md-write">
+  <div class="md-write" v-track:visit>
     <el-crumb :title="data.title" :routes="data.routes"></el-crumb>
     <el-card shadow="always" class="md-write-card">
       <div class="md-write-flex">
@@ -466,7 +466,7 @@ onMounted(async () => {
 .md-write {
   margin-top: 0px;
   .md {
-    height: calc(100vh - 353px) !important; // 改变编辑器默认高度，不需要的可以不配置
+    height: calc(100vh - 321px) !important; // 改变编辑器默认高度，不需要的可以不配置
     text-align: start;
   }
   .md-fullscreen {
@@ -492,9 +492,9 @@ onMounted(async () => {
 <style scoped lang="scss">
 .md-write {
   width: 100%;
-  padding: 0px 2% 20px 2%;
+  padding: 0px 2% 0 2%;
   .md-write-card {
-    margin-bottom: 16px;
+    margin-bottom: 0px;
     border-radius: 10px;
     .md-write-flex {
       display: flex;

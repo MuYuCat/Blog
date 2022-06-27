@@ -7,6 +7,7 @@ const useMapStore = defineStore({
       ak: 'tyC5uQTxrREcpdHlv6X0Hx8koSU8RSKB', // 百度api访问应用（AK）
       coor: 'bd09ll', // 百度地图解码方式
       cip: '', // ip地址
+      address: '', // 省份+城市
       province: '', // 所在省份
       city: '', // 所在城市名称
       cityLocationId: '', // 所在城市的百度Id
@@ -20,6 +21,9 @@ const useMapStore = defineStore({
     };
   },
   actions: {
+    updateAddress(value: string) {
+      this.address = value;
+    },
     updateCip(value: string) {
       this.cip = value;
     },

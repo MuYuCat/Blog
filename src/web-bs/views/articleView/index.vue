@@ -1,5 +1,5 @@
 <template>
-  <div class="md-view">
+  <div class="md-view" v-track:visit>
     <el-crumb :title="crumb.title" :routes="crumb.routes"></el-crumb>
     <el-card shadow="always" class="md-view-card">
       <div class="md-view-flex">
@@ -69,7 +69,7 @@ onMounted(async () => {
 .md-view {
   margin-top: 0px;
   .viewer {
-    height: calc(100vh - 353px) !important; // 改变编辑器默认高度，不需要的可以不配置
+    height: calc(100vh - 321px) !important; // 改变编辑器默认高度，不需要的可以不配置
     text-align: start;
   }
 }
@@ -77,9 +77,9 @@ onMounted(async () => {
 <style scoped lang="scss">
 .md-view {
   width: 100%;
-  padding: 0px 2% 20px 2%;
+  padding: 0px 2% 0px 2%;
   .md-view-card {
-    margin-bottom: 16px;
+    margin-bottom: 0px;
     border-radius: 10px;
     .md-view-flex {
       text-align: center;
@@ -90,7 +90,7 @@ onMounted(async () => {
       color: #1d2129;
     }
     .md {
-      height: calc(100vh - 353px) !important; // 改变编辑器默认高度，不需要的可以不配置
+      height: calc(100vh - 321px) !important; // 改变编辑器默认高度，不需要的可以不配置
       text-align: start;
     }
   }

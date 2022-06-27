@@ -7,6 +7,8 @@ const usePermissionStore = defineStore({
       sidebarShow: false, // 是否展示侧边栏
       headShow: true, // 是否展示顶边栏
       footShow: false, // 是否展示顶边栏
+      pathTitle: '', // 页面标题
+      bowserParser: {}, // 浏览器解析
       path: '/' // 跳转路由
     };
   },
@@ -19,6 +21,12 @@ const usePermissionStore = defineStore({
     },
     updateFootShow(value: boolean) {
       this.footShow = value;
+    },
+    updatePathTitle(value: string) {
+      this.pathTitle = value;
+    },
+    updateBowserParser(value: any) {
+      this.bowserParser = value;
     },
     updatePath(value: string) {
       this.path = value;

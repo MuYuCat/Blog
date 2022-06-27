@@ -1,7 +1,7 @@
 <template>
-  <div class="blog-content">
+  <div class="blog-content" v-track:visit>
     <div class="card-content">
-      <el-card shadow="never" class="card-item">
+      <el-card shadow="never" class="card-item" v-track:click="{ sapmodid: 'article', eleid: '1' }">
         <h2 class="card-item-name">
           <a
             href="https://juejin.cn/post/7094056264283471908"
@@ -13,7 +13,7 @@
         </h2>
         <h2 class="card-item-time">MAY 17, 2022</h2>
       </el-card>
-      <el-card shadow="never" class="card-item">
+      <el-card shadow="never" class="card-item" v-track:click="{ sapmodid: 'article', eleid: '2' }">
         <h2 class="card-item-name">
           <a
             href="https://juejin.cn/post/7062146999616798727"
@@ -25,7 +25,7 @@
         </h2>
         <h2 class="card-item-time">MAY 17, 2022</h2>
       </el-card>
-      <el-card shadow="never" class="card-item">
+      <el-card shadow="never" class="card-item" v-track:click="{ sapmodid: 'article', eleid: '3' }">
         <h2 class="card-item-name">
           <a
             href="https://juejin.cn/post/6844903487155732494"
@@ -37,7 +37,7 @@
         </h2>
         <h2 class="card-item-time">MAY 17, 2022</h2>
       </el-card>
-      <el-card shadow="never" class="card-item">
+      <el-card shadow="never" class="card-item" v-track:click="{ sapmodid: 'article', eleid: '4' }">
         <h2 class="card-item-name">
           <a
             href="https://juejin.cn/post/7018805943710253086"
@@ -49,7 +49,7 @@
         </h2>
         <h2 class="card-item-time">MAY 17, 2022</h2>
       </el-card>
-      <el-card shadow="never" class="card-item">
+      <el-card shadow="never" class="card-item" v-track:click="{ sapmodid: 'article', eleid: '5' }">
         <h2 class="card-item-name">
           <a
             href="https://juejin.cn/post/6872111128135073806"
@@ -61,7 +61,7 @@
         </h2>
         <h2 class="card-item-time">MAY 17, 2022</h2>
       </el-card>
-      <el-card shadow="never" class="card-item">
+      <el-card shadow="never" class="card-item" v-track:click="{ sapmodid: 'article', eleid: '6' }">
         <h2 class="card-item-name">
           <a
             href="https://juejin.cn/post/6844904115428917255"
@@ -73,7 +73,7 @@
         </h2>
         <h2 class="card-item-time">MAY 17, 2022</h2>
       </el-card>
-      <el-card shadow="never" class="card-item">
+      <el-card shadow="never" class="card-item" v-track:click="{ sapmodid: 'article', eleid: '7' }">
         <h2 class="card-item-name">
           <a
             href="https://juejin.cn/post/6844903832435032072"
@@ -85,7 +85,7 @@
         </h2>
         <h2 class="card-item-time">MAY 17, 2022</h2>
       </el-card>
-      <el-card shadow="never" class="card-item">
+      <el-card shadow="never" class="card-item" v-track:click="{ sapmodid: 'article', eleid: '8' }">
         <h2 class="card-item-name">
           <a
             href="https://juejin.cn/post/7016593221815910408"
@@ -102,34 +102,33 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue';
-import { storeToRefs } from 'pinia';
-import { ElCard } from 'element-plus';
-import useUserStore from '@/store/user';
+// import { reactive } from 'vue';
+// import { storeToRefs } from 'pinia';
+// import { ElCard } from 'element-plus';
+// import useUserStore from '@/store/user';
 
-interface IUserInfo {
-  username: string;
-  id: string;
-}
+// interface IUserInfo {
+//   username: string;
+//   id: string;
+// }
 
-interface IDataProps {
-  resultString: string;
-  poetry: string;
-  userInfo: IUserInfo;
-  // turnLeft: () => void;
-}
-const userStore = useUserStore();
-const { isLogIn } = storeToRefs(userStore);
+// interface IDataProps {
+//   resultString: string;
+//   poetry: string;
+//   userInfo: IUserInfo;
+//   // turnLeft: () => void;
+// }
+// const userStore = useUserStore();
+// const { isLogIn } = storeToRefs(userStore);
 
-const data: IDataProps = reactive({
-  resultString: '',
-  poetry: '',
-  userInfo: {
-    username: '',
-    id: ''
-  }
-});
-console.log(data, isLogIn);
+// const data: IDataProps = reactive({
+//   resultString: '',
+//   poetry: '',
+//   userInfo: {
+//     username: '',
+//     id: ''
+//   }
+// });
 </script>
 
 <style scoped lang="scss">

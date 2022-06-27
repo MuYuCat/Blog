@@ -27,4 +27,13 @@ const delTags = (data?: any) => {
   });
 };
 
-export { addTags, getTags, delTags };
+// get authors标签
+const getAuthors = (data?: any) => {
+  return request({
+    url: '/blog/dict/getAuthors',
+    method: 'get',
+    data
+  });
+};
+
+export { addTags, getTags, delTags, getAuthors };
